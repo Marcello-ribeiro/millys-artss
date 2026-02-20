@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBXFSSEQ7W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PBXFSSEQ7W');
+</script>
+
+    <title>Milly's arts</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/icon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+<header>
+    <div class="banner">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="../../index.html">
+                        <img src="../img/Logo estética minimalista marrom e branco (1).png" alt="">
+                    </a>
+                </div>
+
+                <nav>
+                    <ul id="itens-menu">
+                        <li><a href="../../index.html">Inicio</a></li>
+                        <li><a href="#">Produtos</a></li>
+                    </ul>
+                </nav>
+
+                <!-- ICONE CARRINHO -->
+                <a href="javascript:void(0);" onclick="openCart()">
+                    <img class="sacolac" src="../img/carrinho.png"
+                         alt="Carrinho"
+                         width="30"
+                         height="30">
+                </a>
+            </div>
+
+            <div class="linha">
+            </div>
+        </div>
+    </div>
+</header>
+
+<main  class="pag-mais-info">
+    <article>
+    
+            <h2>
+                Somos a Milly's Arts, uma loja criada com o propósito de transformar sentimentos em lembranças físicas.
+            </h2>
+    
+             <p>
+                Acreditamos que um presente não deve ser apenas algo bonito, mas algo que carregue significado. Por isso trabalhamos com produtos personalizados pensados para marcar momentos importantes — aniversários, namoro, amizade, reconciliações ou simplesmente para demonstrar carinho a alguém especial.
+    
+                Cada peça é feita manualmente, uma a uma, com cuidado nos detalhes e atenção à história por trás de cada pedido. Não produzimos em massa: cada cliente participa do processo enviando fotos e referências, e tudo é preparado de forma única para aquela pessoa que irá receber.
+    
+                Nosso objetivo não é apenas vender um produto, mas criar algo que tenha valor emocional, que seja guardado e lembrado com o tempo.
+    
+                Como trabalhamos:
+                Após escolher o produto, você envia as fotos e informações necessárias. Montamos uma prévia e iniciamos a produção após confirmação do pedido.
+    
+                Forma de pagamento:
+                Para iniciar a confecção é realizado um sinal de 50% do valor do pedido. Os outros 50% são pagos após a entrega do produto.
+    
+                Na Milly's Arts, cada pedido carrega uma história — e nosso trabalho é transformar essa história em presente.
+            </p>
+    </article>
+  
+    <a class="bt-compra" href="produtos.html">Ir as compras 👜</a>
+
+</main>
+
+
+
+<footer>
+    <p>Site desenvolvido por <a href="https://www.instagram.com/marcello.lzz?igsh=MTFqb251OHZ3Mzlp&utm_source=qr">&#x1F517; Marcello</a></p>
+</footer>
+
+
+
+<!-- SIDEBAR DO CARRINHO -->
+<div id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header">
+        <h2>Seu Carrinho</h2>
+        <span onclick="closeCart()" style="cursor:pointer;">✕</span>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-footer">
+        <p id="cartTotal">Total: R$ 0,00</p>
+        <button onclick="finalizarCompra()">Finalizar</button>
+    </div>
+</div>
+
+<!-- SCRIPT SEMPRE NO FINAL -->
+<script src="../js/carrinho.js"></script>
+</body>
+</html>
