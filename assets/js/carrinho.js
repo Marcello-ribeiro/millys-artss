@@ -62,7 +62,7 @@ function abrirProduto(nome,preco,img,temTamanho=false,categoria="buque"){
     if(ITENS_ESGOTADOS.includes(nome)){
     showModal(
         "Produto indisponível",
-        `O produto "${nome}" está esgotado no momento 😢`
+        `O produto "${nome}" está esgotado no momento 😿`
     );
     return;
 }
