@@ -263,20 +263,26 @@ nav a:hover{
 
 /* BOTÃO ADICIONAR */
 
+/* BOTÃO ADICIONAR */
+
 .produto button{
     margin-top: 6px;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 20px;
-    background: rgba(128, 0, 128, 0.452);
+    background: #800080; /* roxo sólido */
     color: white;
     cursor: pointer;
-    font-size: 12px;
-    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .produto button:hover{
-    background: rgba(128, 0, 128, 0.521)
+    background: #e08ae0; /* roxo mais escuro */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
 /* ================= QUADROS ================= */
