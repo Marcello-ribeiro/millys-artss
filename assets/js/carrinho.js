@@ -376,8 +376,7 @@ function showToast(msg,tipo="ok"){
 // =============================
 
 const ITENS_ESGOTADOS = [
-    "Buquê de Borboletas",
-    "Cubo Giratorio"
+    //"Buquê de Borboletas"
 ];
 
 document.addEventListener("DOMContentLoaded",()=>{
