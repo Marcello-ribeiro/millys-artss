@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBXFSSEQ7W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);} 
+  gtag('js', new Date());
+  gtag('config', 'G-PBXFSSEQ7W');
+</script>
+<title>Milly's arts</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="shortcut icon" href="assets/img/icon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+<header>
+<div class="banner">
+<div class="container">
+<div class="navbar">
+
+<div class="logo">
+<a href="index.html">
+<img src="assets/img/Logo estética minimalista marrom e branco (1).png">
+</a>
+</div>
+
+<nav>
+<ul id="itens-menu">
+<li><a href="index.html">Inicio</a></li>
+<li><a href="assets/pages/produtos.html">Produtos</a></li>
+</ul>
+</nav>
+
+<a href="#" onclick="openCart(); return false;" class="cart-icon">
+<img class="sacolac" src="assets/img/carrinho.png" width="30" height="30">
+<span id="cart-count">0</span>
+</a>
+
+</div>
+
+<div class="linha">
+<div class="col-2">
+<h1>Presenteie quem você ama</h1>
+<p>
+Onde ideias viram presente.
+Detalhes que falam por você e transformam gestos simples em algo especial.
+</p>
+
+<p class="mais-info">
+<a href="assets/pages/mais-info.html" class="btn"> Mais Info →</a>
+</p>
+</div>
+
+<div class="col-2">
+<img src="assets/img/Gemini_Generated_Image_k58vck58vck58vck (1).png" class="buque-img">
+</div>
+</div>
+</div>
+</div>
+</header>
+
+<main>
+<div class="categorias">
+<div class="corpocat">
+<h2>↓ Produtos em destaque ↓</h2>
+
+<div class="produtos">
+
+<div class="produto" id="esgotado">
+<img src="assets/img/cubo.jpeg">
+<h3>Cubo Giratorio</h3>
+<p>R$ 22,00</p>
+<button onclick="abrirProduto('Cubo Giratorio',22,'assets/img/cubo.jpeg',false)">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/polaroidss.jpeg">
+<h3>Polaroids</h3>
+<p>R$ 1,00 <small>(Unidade)</small></p>
+<button onclick="abrirProduto('Polaroid',1,'assets/img/polaroidss.jpeg',false)">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/monoculos.jpeg">
+<h3>Chaveiro Monoculo</h3>
+<p>R$ 12,00</p>
+<button onclick="abrirProduto('Chaveiro Monoculo',12,'assets/img/monoculos.jpeg',false)">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/buque-rosa.jpeg">
+<h3>Buquê de Borboletas</h3>
+<p>R$ 70,00</p>
+<button onclick="abrirProduto('Buquê de Borboletas',70,'assets/img/buque-rosa.jpeg',true)">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/livrodis.jpeg">
+<h3>Livrinho disney</h3>
+<p>R$ 15,00</p>
+<button onclick="abrirProduto('Livrinho disney',20,'assets/img/livrodis.jpeg',true,'livro')">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/quadro.jpeg">
+<h3>Quadro 15x20</h3>
+<p>R$ 30,00</p>
+<button onclick="abrirProduto('Quadro 15x20',30,'assets/img/quadro.jpeg',false)">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/caixinha-chama.jpeg">
+<h3>caixinha Chamas</h3>
+<p>R$ 10,00</p>
+<button onclick="abrirProduto('caixinha Chamas',10,'assets/img/caixinha-chama.jpeg',false)">🛒</button>
+</div>
+
+<div class="produto">
+<img src="assets/img/fundo-ft.jpeg">
+<h3>Buquê Van Gogh</h3>
+<p>R$ 50,00</p>
+<button onclick="abrirProduto('Buquê Van Gogh',50,'assets/img/fundo-ft.jpeg',false)">🛒</button>
+</div>
+
+</div>
+
+<aside>
+<p><a href="assets/pages/produtos.html" class="vmais">Produtos →</a></p>
+</aside>
+
+</div>
+</div>
+
+</main>
+
+<footer>
+<p>Site desenvolvido por 🔗 <a href="https://www.instagram.com/marcello.lzz?igsh=MTFqb251OHZ3Mzlp&utm_source=qr">Marcello</a></p>
+</footer>
+
+<!-- SIDEBAR DO CARRINHO -->
+
+<div id="cartSidebar" class="cart-sidebar">
+
+<div class="cart-header">
+<h2>Seu Carrinho</h2>
+<span onclick="closeCart()">✕</span>
+</div>
+
+<div id="cartItems"></div>
+
+<div class="cart-footer">
+<p id="cartTotal">Total: R$ 0,00</p>
+
+<!-- CAMPO DE CUPOM -->
+<div class="cupom-box">
+    <input type="text" id="cupomInput" placeholder="Cupom de desconto">
+    <button onclick="aplicarCupom()">Aplicar</button>
+    <p id="cupomMsg"></p>
+</div>
+
+<div class="pagamento-box">
+<label>Forma de pagamento:</label>
+<select id="formaPagamento">
+<option value="">Selecione</option>
+<option value="Pix">Pix</option>
+<option value="Cartão">Cartão</option>
+<option value="Espécie">Espécie</option>
+</select>
+</div>
+
+<button onclick="finalizarCompra()">Finalizar comprinhas ✨</button>
+
+</div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- MODAL BONITO -->
+<div id="modalAviso" class="modal">
+  <div class="modal-box">
+
+    <div class="modal-icon">🛍️</div>
+
+    <h3 id="modalTitulo">Aviso</h3>
+    <p id="modalMensagem">Mensagem aqui</p>
+
+    <button onclick="fecharModal()">Entendi</button>
+  </div>
+</div>
+
+<!-- MODAL DO PRODUTO -->
+<div id="productModal" class="product-modal">
+  <div class="product-box">
+<span class="close" onclick="fecharProduto()">✕</span>
+<div class="img-area">
+    <img id="pm-img">
+</div>
+<h2 id="pm-nome"></h2>
+<p id="pm-preco"></p>
+<div id="pm-tamanho"></div>
+<button id="pm-add">Adicionar ao carrinho</button>
+  </div>
+</div>
+
+<script src="assets/js/carrinho.js"></script>
+
+</body>
+</html>

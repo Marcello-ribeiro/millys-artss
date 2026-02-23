@@ -60,7 +60,7 @@ main{
 
 nav{
     flex: 1;
-    text-align: right;
+    text-align: center;
 }
 
 #itens-menu{
@@ -70,7 +70,7 @@ nav{
 
 nav li{
     display: inline-block;
-    margin-right: 30px;
+    margin: 20px;
 }
 
 nav a{
@@ -157,6 +157,18 @@ nav a:hover{
 .col-2 img{
     max-width: 160px;
     width: 100%;
+}
+
+.col-2{
+    perspective: 1000px;
+}
+
+.buque-img{
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.buque-img:hover{
+    transform: scale(1.1) rotateY(8deg) rotateX(5deg);
 }
 
 .col-2 .mais-info{
@@ -893,9 +905,9 @@ color:#8a2be2;
     flex-wrap: wrap;
 }
 
-.cupom-box input{
+input, select, textarea{
+    font-size:16px;
     flex: 1;
-    padding: 8px;
     border-radius: 8px;
     border: 1px solid #ddd;
     outline: none;
@@ -910,6 +922,31 @@ color:#8a2be2;
     cursor: pointer;
     transition: 0.2s;
 }
+
+
+/* PRODUTO ESGOTADO*/
+
+.produto.esgotado img{
+    filter: grayscale(100%);
+}
+
+.produto{
+    position: relative;
+}
+
+.produto.esgotado::after{
+    content: "ESGOTADO";
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
 
 .cupom-box button:hover{
     background: #6e472d;
@@ -1194,7 +1231,7 @@ DESKTOP
     }
 
     .logo{
-        margin-left:-265px; /* truque visual profissional */
+        margin-left:-100px; /* truque visual profissional */
     }
 
 }
@@ -1231,7 +1268,6 @@ DESKTOP
     nav{
         display:flex;
         align-items:center;
-        width:100%;
     }
 
     /* menu fica junto */
@@ -1253,11 +1289,13 @@ DESKTOP
 
     .cart-icon{
         position:absolute;
-        right:-255px;
+        right:-100px;
         top:50%;
         transform:translateY(-50%);
     }
 
 }
+
+
 
 

@@ -45,12 +45,29 @@ function precoPorTamanho(precoBase,tamanho){
     return PRECOS_TAMANHO[tamanho]??precoBase;
 }
 
+const PRECOS_LIVRO={
+    "P":15,"G":20
+};
+
+function precoPorTamanho2(precoBase,tamanho){
+    if(!tamanho) return precoBase;
+    return PRECOS_LIVRO[tamanho]??precoBase;
+}
+
 // ========= MODAL PRODUTO =========
 let produtoAtual=null;
 
-function abrirProduto(nome,preco,img,temTamanho=false){
+function abrirProduto(nome,preco,img,temTamanho=false,categoria="buque"){
 
-    produtoAtual={nome,precoBase:preco,preco,img,temTamanho,tamanho:null};
+    if(ITENS_ESGOTADOS.includes(nome)){
+    showModal(
+        "Produto indisponível",
+        `O produto "${nome}" está esgotado no momento 😢`
+    );
+    return;
+}
+
+    produtoAtual={nome,precoBase:preco,preco,img,temTamanho,tamanho:null,categoria};
 
     const imgEl=document.getElementById("pm-img");
     const nomeEl=document.getElementById("pm-nome");
@@ -61,27 +78,64 @@ function abrirProduto(nome,preco,img,temTamanho=false){
 
     imgEl.src=img;
     nomeEl.innerText=nome;
-    precoEl.innerText="R$ "+preco.toFixed(2);
     area.innerHTML="";
 
+    // preço inicial
+    if(temTamanho)
+        precoEl.innerText="Escolha o tamanho";
+    else
+        precoEl.innerText="R$ "+preco.toFixed(2);
+
+    // seletor de tamanho
     if(temTamanho){
-        area.innerHTML=`
+      if(temTamanho){
+
+    let opcoes = `<option value="">Escolher</option>`;
+
+    if(categoria === "livro"){
+        opcoes += `
+            <option value="P">P</option>
+            <option value="G">G</option>
+        `;
+    } else {
+        opcoes += `
+            <option value="Mini">Mini</option>
+            <option value="P">P</option>
+            <option value="M">M</option>
+            <option value="G">G</option>
+            <option value="GG">GG</option>
+        `;
+    }
+
+    area.innerHTML = `
         <label>Tamanho:</label>
         <select id="pm-select">
-            <option value="">Escolher</option>
-            <option>Mini</option>
-            <option>P</option>
-            <option>M</option>
-            <option>G</option>
-            <option>GG</option>
-        </select>`;
+            ${opcoes}
+        </select>
+    `;
+}
 
         const sel=document.getElementById("pm-select");
+
         sel.onchange=()=>{
-            produtoAtual.tamanho=sel.value;
-            produtoAtual.preco=precoPorTamanho(produtoAtual.precoBase,sel.value);
-            precoEl.innerText="R$ "+produtoAtual.preco.toFixed(2);
-        };
+    produtoAtual.tamanho=sel.value.trim();
+
+    let preco;
+
+    if(produtoAtual.categoria==="livro")
+        preco=precoPorTamanho2(produtoAtual.precoBase,produtoAtual.tamanho);
+    else
+        preco=precoPorTamanho(produtoAtual.precoBase,produtoAtual.tamanho);
+
+    if(preco===undefined){
+        precoEl.innerText="Tamanho indisponível";
+        produtoAtual.preco=0;
+        return;
+    }
+
+    produtoAtual.preco=preco;
+    precoEl.innerText="R$ "+preco.toFixed(2);
+};
     }
 
     document.getElementById("productModal").classList.add("active");
@@ -91,11 +145,11 @@ function fecharProduto(){
     document.getElementById("productModal").classList.remove("active");
 }
 
-// ===== CORRIGIDO (faltava fechar) =====
+// adicionar ao carrinho com proteção anti NaN
 document.addEventListener("click",e=>{
     if(e.target && e.target.id==="pm-add"){
 
-        if(produtoAtual.temTamanho && !produtoAtual.tamanho){
+        if(produtoAtual.temTamanho && (!produtoAtual.tamanho || !produtoAtual.preco)){
             showModal("Escolha o tamanho","Selecione antes de adicionar 🌷");
             return;
         }
@@ -316,3 +370,26 @@ function showToast(msg,tipo="ok"){
         toast.classList.remove("show");
     },2500);
 }
+
+// =============================
+// CONTROLE DE ESGOTADO POR NOME
+// =============================
+
+const ITENS_ESGOTADOS = [
+    "Buquê de Borboletas",
+    "Cubo Giratorio"
+];
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    document.querySelectorAll(".produto").forEach(produto=>{
+
+        const nome = produto.querySelector("h3")?.innerText.trim();
+
+        if(ITENS_ESGOTADOS.includes(nome)){
+            produto.classList.add("esgotado");
+        }
+
+    });
+
+});
