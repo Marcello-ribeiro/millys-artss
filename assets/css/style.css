@@ -347,7 +347,7 @@ nav a:hover{
 }
 
 .cart-footer button:hover{
-    background: black;
+    background: #6e472d;
 }
 
 /* ================= ASIDE ================= */
@@ -394,7 +394,7 @@ aside{
 
 .bt-compra:hover{
     color: #000;
-    background: purple;
+    background: #6e472d;
     transition: 0.5s;
 
 }
@@ -557,6 +557,8 @@ footer a:hover{
     appearance:none;
     -webkit-appearance:none;
     -moz-appearance:none;
+
+    color: #888;
 
     padding:10px 12px;
     border-radius:14px;
@@ -903,30 +905,59 @@ color:#8a2be2;
     text-decoration: underline;
 }
 
+/* ===== CUPOM IGUAL AO CAMPO NOME ===== */
+
 .cupom-box{
-    margin-top: 12px;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    flex-wrap: wrap;
+    margin-top:15px;
+    margin-bottom:5px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 }
 
-input, select, textarea{
-    font-size:16px;
-    flex: 1;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    outline: none;
+.cupom-box label{
+    font-size:14px;
+    font-weight:500;
+    color:#555;
 }
 
+#cupomInput{
+    padding:10px 12px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    background:#f1f1f1; /* igual ao visual da imagem */
+    font-size:14px;
+    color:#555;
+    transition:.3s ease;
+}
+
+#cupomInput::placeholder{
+    color:#888;
+}
+
+#cupomInput:focus{
+    background:#fff;
+    border-color:#c59d5f;
+    box-shadow:0 0 0 2px rgba(197,157,95,.15);
+}
+
+
+/* botão aplicar igual finalizar */
 .cupom-box button{
-    padding: 8px 12px;
-    border-radius: 15px;
-    border: none;
-    background: purple;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
+    margin-top:6px;
+    padding:10px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#d946ef,#a21caf);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.cupom-box button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 16px rgba(162,28,175,.35);
 }
 
 /* ========= CAMPO NOME CLIENTE ========= */
@@ -1111,24 +1142,9 @@ body.cart-open::before{
 }
 
 
-/* INPUT CUPOM PERSONALIZADO */
-#cupomInput{
-    background: linear-gradient(180deg,#fff,#f6ecfa);
-    border: 2px solid #d9a7f2;
-    color:#000000;
 
-    border-radius:14px;
-    padding:10px 12px;
-    font-family:'Poppins',sans-serif;
-    font-weight:500;
 
-    transition:.25s;
-}
 
-/* placeholder */
-#cupomInput::placeholder{
-    color:#000000;
-}
 
 /* foco (quando clica) */
 #cupomInput:focus{

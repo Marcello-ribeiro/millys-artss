@@ -5,7 +5,7 @@ function caminhoAbsoluto(src){
 
 // ========= CUPOM =========
 const CUPONS = {
-    "NIVER01":0.30
+   // "NIVER01":0.30
 };
 
 let cupomAtual=null;
