@@ -929,6 +929,37 @@ input, select, textarea{
     transition: 0.2s;
 }
 
+/* ========= CAMPO NOME CLIENTE ========= */
+
+.cliente-box {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cliente-box label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.cliente-box input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s ease;
+    background: #fff;
+}
+
+.cliente-box input:focus {
+    border-color: #c59d5f;
+    box-shadow: 0 0 0 2px rgba(197, 157, 95, 0.15);
+}
+
 
 /* PRODUTO ESGOTADO*/
 

@@ -320,26 +320,40 @@ function atualizarCarrinho(){
 
 // ========= FINALIZAR =========
 function finalizarCompra(){
+
     let carrinho=getCart();
-    if(!carrinho.length) return showModal("Carrinho vazio","Você ainda não escolheu nenhum mimo 😢");
-    if(!formaPagamento.value) return showModal("Ops!","Escolha a forma de pagamento ✨");
+    let nomeInput = document.getElementById("nomeCliente");
+    let nome = nomeInput ? nomeInput.value.trim() : "";
+
+    if(!carrinho.length)
+        return showModal("Carrinho vazio","Você ainda não escolheu nenhum mimo 😢");
+
+    if(!formaPagamento.value)
+        return showModal("Ops!","Escolha a forma de pagamento ✨");
+
+    if(!nome)
+        return showModal("Falta seu nome 😊","Digite seu nome antes de finalizar o pedido.");
 
     for(let i of carrinho)
         if(i.temTamanho && !i.tamanho)
             return showModal("Escolha o tamanho","Selecione o tamanho do buquê 🌷");
 
     let msg="NOVO PEDIDO — Milly's Arts*\n\n";
+
+    msg+=`Cliente: ${nome}\n\n`;
+
     let total=0;
 
-  carrinho.forEach(i=>{
-    let sub=i.preco*i.qtd;
-    total+=sub;
+    carrinho.forEach(i=>{
+        let sub=i.preco*i.qtd;
+        total+=sub;
 
-    let tamanhoTxt = i.tamanho ? ` (${i.tamanho})` : "";
+        let tamanhoTxt = i.tamanho ? ` (${i.tamanho})` : "";
 
-    msg+=`→ ${i.qtd}x ${i.nome}${tamanhoTxt} — R$ ${sub.toFixed(2)}\n`;
-});
-msg+="\n";
+        msg+=`→ ${i.qtd}x ${i.nome}${tamanhoTxt} — R$ ${sub.toFixed(2)}\n`;
+    });
+
+    msg+="\n";
 
     let desconto=0;
     if(cupomAtual){
@@ -349,10 +363,13 @@ msg+="\n";
 
     let totalFinal=Math.max(0,total-desconto);
 
-    if(cupomAtual) msg+=`Cupom: ${cupomAtual}\nDesconto: -R$ ${desconto.toFixed(2)}\n`;
+    if(cupomAtual)
+        msg+=`Cupom: ${cupomAtual}\nDesconto: -R$ ${desconto.toFixed(2)}\n`;
+
     msg+=`━━━━━━━━━━━━━━\nTOTAL: R$ ${totalFinal.toFixed(2)}\nPagamento: ${formaPagamento.value}`;
 
     window.open(`https://wa.me/5582991016562?text=${encodeURIComponent(msg)}`,"_blank");
+
 }
 // ========= TOAST =========
 function showToast(msg,tipo="ok"){
