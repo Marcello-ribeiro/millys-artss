@@ -243,6 +243,8 @@ function addToCart(nome,preco,img,tamanho=null,temTamanho=false){
 
     saveCart(carrinho);
     atualizarCarrinho();
+
+     mostrarToast("🛍️ " + nome + " adicionado ao carrinho!");
 }
 
 // ========= REMOVER ITEM =========
@@ -409,3 +411,21 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
 
 });
+
+// ===== TOAST =====
+function mostrarToast(mensagem, tipo = "ok") {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = mensagem;
+
+    // remove classes antigas
+    toast.classList.remove("ok", "erro");
+
+    // adiciona tipo
+    toast.classList.add(tipo);
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}

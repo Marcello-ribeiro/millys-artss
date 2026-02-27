@@ -115,7 +115,7 @@ nav a:hover{
     top: -6px;          /* sobe */
     right: -8px;        /* vai pro canto */
     
-    background: #ff4d6d; /* cor de notificação */
+    background: plum; /* cor de notificação */
     color: white;
     
     font-size: 11px;
@@ -224,6 +224,10 @@ nav a:hover{
     border-radius: 30px;
     color: rgb(255, 255, 255);
 }
+
+
+
+
 
 .produtos{
     display: grid;
@@ -447,7 +451,6 @@ footer a:hover{
     color: purple;
 }
 
-/* ===== TOAST NOTIFICATION ===== */
 
 
 /* ================= ITENS DO CARRINHO (NOVO VISUAL) ================= */
@@ -1055,7 +1058,7 @@ color:#8a2be2;
 }
 
 .toast.ok{
-    background:linear-gradient(135deg,#da67da,#e96de9);
+    background:linear-gradient(135deg,#000000,#e96de9,#000000);
 }
 
 .toast.erro{
