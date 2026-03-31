@@ -331,7 +331,7 @@ function finalizarCompra(){
         return showModal("Carrinho vazio","Você ainda não escolheu nenhum mimo 😢");
 
     if(!formaPagamento.value)
-        return showModal("Ops!","Escolha a forma de pagamento ✨");
+        return showModal("Ops!","Escolha a forma de pagamento 💰");
 
     if(!nome)
         return showModal("Falta seu nome 😊","Digite seu nome antes de finalizar o pedido.");
@@ -390,12 +390,10 @@ function showToast(msg,tipo="ok"){
     },2500);
 }
 
-// =============================
 // CONTROLE DE ESGOTADO POR NOME
-// =============================
 
 const ITENS_ESGOTADOS = [
-    //"Buquê de Borboletas"
+    //"Buquê de Borboletas",
 ];
 
 document.addEventListener("DOMContentLoaded",()=>{
