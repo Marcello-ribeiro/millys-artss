@@ -1090,6 +1090,11 @@ body.cart-open::before{
     backdrop-filter:blur(4px);
     z-index:998;
 }
+.small-lr{
+    padding-top: 6px;
+    font-size: 0.7em;
+    color: rgb(87, 37, 87);
+}
 
 /* painel */
 .cart-sidebar{
