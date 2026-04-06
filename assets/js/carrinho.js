@@ -393,22 +393,46 @@ function showToast(msg,tipo="ok"){
 // CONTROLE DE ESGOTADO POR NOME
 
 const ITENS_ESGOTADOS = [
-    //"Buquê de Borboletas",
-];
+    "lírio rosa",
+    "lírio rosa (borda branca)",
+    "Lírio azul",
 
-document.addEventListener("DOMContentLoaded",()=>{
 
-    document.querySelectorAll(".produto").forEach(produto=>{
 
-        const nome = produto.querySelector("h3")?.innerText.trim();
+].map(i => i.toLowerCase().trim());
 
-        if(ITENS_ESGOTADOS.includes(nome)){
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll(".produto").forEach(produto => {
+
+        let nome = produto.querySelector("h3")?.innerText
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .trim();
+
+        if (ITENS_ESGOTADOS.includes(nome)) {
             produto.classList.add("esgotado");
+
+            const btn = produto.querySelector("button");
+
+            if (btn) {
+                btn.innerText = "Esgotado";
+
+                btn.onclick = (e) => {
+                    e.preventDefault();
+
+                    showModal(
+                        "Produto indisponível 😢",
+                        "item esgotado no momento. Volte em breve 💐"
+                    );
+                };
+            }
         }
 
     });
 
 });
+
 
 // ===== TOAST =====
 function mostrarToast(mensagem, tipo = "ok") {
