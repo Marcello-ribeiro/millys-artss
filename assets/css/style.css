@@ -1305,9 +1305,9 @@ DESKTOP
         justify-content:space-between;
     }
 
-    .logo{
-        margin-left:-100px; /* truque visual profissional */
-    }
+   .logo{
+    margin-left:-50px;
+}
 
 }
 
@@ -1362,12 +1362,12 @@ DESKTOP
         position:relative;
     }
 
-    .cart-icon{
-        position:absolute;
-        right:-100px;
-        top:50%;
-        transform:translateY(-50%);
-    }
+.cart-icon{
+    position:absolute;
+    right:-40px;
+    top:50%;
+    transform:translateY(-50%);
+}
 
 }
 
