@@ -393,8 +393,8 @@ function showToast(msg,tipo="ok"){
 // CONTROLE DE ESGOTADO POR NOME
 
 const ITENS_ESGOTADOS = [
-    "lírio rosa",
-    "lírio rosa (borda branca)",
+    //"lírio rosa",
+   // "lírio rosa (borda branca)",
     "Lírio azul",
 
 
