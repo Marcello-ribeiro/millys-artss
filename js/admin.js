@@ -260,24 +260,7 @@ function limparFormProduto(){
     nomeArquivos.textContent = "Nenhuma foto selecionada";
 }
 
-async function salvarProduto(event){
-    event.preventDefault();
-
-    const tamanhos = pegarTamanhosSelecionados();
-    const temTamanho = tamanhos.length > 0;
-
-    const payload = {
-        nome: nomeProduto.value.trim(),
-        preco: Number(precoProduto.value),
-        descricao: descricaoProduto.value.trim(),
-        categoria_id: Number(categoriaProduto.value),
-        ativo: ativoProduto.checked,
-        destaque: destaqueProduto.checked,
-        aparecer_home: homeProduto.checked,
-        tem_tamanho: temTamanho
-    };
-
-    async function comprimirImagem(arquivo, qualidade = 0.75, larguraMaxima = 1200){
+async function comprimirImagem(arquivo, qualidade = 0.75, larguraMaxima = 1200){
     return new Promise((resolve, reject) => {
         const img = new Image();
         const reader = new FileReader();
@@ -303,24 +286,20 @@ async function salvarProduto(event){
             const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, largura, altura);
 
-            canvas.toBlob(
-                blob => {
-                    if(!blob){
-                        reject("Erro ao comprimir imagem.");
-                        return;
-                    }
+            canvas.toBlob(blob => {
+                if(!blob){
+                    reject("Erro ao comprimir imagem.");
+                    return;
+                }
 
-                    const imagemComprimida = new File(
-                        [blob],
-                        arquivo.name.replace(/\.[^/.]+$/, ".webp"),
-                        { type: "image/webp" }
-                    );
+                const imagemComprimida = new File(
+                    [blob],
+                    arquivo.name.replace(/\.[^/.]+$/, ".webp"),
+                    { type: "image/webp" }
+                );
 
-                    resolve(imagemComprimida);
-                },
-                "image/webp",
-                qualidade
-            );
+                resolve(imagemComprimida);
+            }, "image/webp", qualidade);
         };
 
         img.onerror = () => reject("Erro ao carregar imagem.");
@@ -329,6 +308,23 @@ async function salvarProduto(event){
         reader.readAsDataURL(arquivo);
     });
 }
+
+async function salvarProduto(event){
+    event.preventDefault();
+
+    const tamanhos = pegarTamanhosSelecionados();
+    const temTamanho = tamanhos.length > 0;
+
+    const payload = {
+        nome: nomeProduto.value.trim(),
+        preco: Number(precoProduto.value),
+        descricao: descricaoProduto.value.trim(),
+        categoria_id: Number(categoriaProduto.value),
+        ativo: ativoProduto.checked,
+        destaque: destaqueProduto.checked,
+        aparecer_home: homeProduto.checked,
+        tem_tamanho: temTamanho
+    };
 
     if(!payload.nome || !payload.preco || !payload.categoria_id){
         mostrarToast("Preencha nome, preço e categoria.");
@@ -380,32 +376,37 @@ async function salvarImagensProduto(idProdutoSalvo){
         .filter(Boolean);
 
     const arquivos = [...uploadImagensProduto.files];
-
     const urlsUpload = [];
 
     for(const arquivo of arquivos){
-       const arquivoComprimido = await comprimirImagem(arquivo);
+        try{
+            const arquivoComprimido = await comprimirImagem(arquivo);
 
-const nomeArquivo = `${idProdutoSalvo}/${Date.now()}-${crypto.randomUUID()}.webp`;
+            const nomeArquivo = `${idProdutoSalvo}/${Date.now()}-${crypto.randomUUID()}.webp`;
 
-const { error: uploadError } = await supabaseClient.storage
-    .from("produtos")
-    .upload(nomeArquivo, arquivoComprimido, {
-        contentType: "image/webp",
-        upsert: false
-    });
+            const { error: uploadError } = await supabaseClient.storage
+                .from("produtos")
+                .upload(nomeArquivo, arquivoComprimido, {
+                    contentType: "image/webp",
+                    upsert: false
+                });
 
-        if(uploadError){
-            console.error(uploadError);
-            mostrarToast("Erro ao enviar uma imagem.");
-            continue;
+            if(uploadError){
+                console.error(uploadError);
+                mostrarToast("Erro ao enviar imagem.");
+                continue;
+            }
+
+            const { data } = supabaseClient.storage
+                .from("produtos")
+                .getPublicUrl(nomeArquivo);
+
+            urlsUpload.push(data.publicUrl);
+
+        }catch(erro){
+            console.error(erro);
+            mostrarToast("Erro ao processar imagem.");
         }
-
-        const { data } = supabaseClient.storage
-            .from("produtos")
-            .getPublicUrl(nomeArquivo);
-
-        urlsUpload.push(data.publicUrl);
     }
 
     const urls = [...urlsDigitadas, ...urlsUpload];
@@ -431,6 +432,7 @@ const { error: uploadError } = await supabaseClient.storage
     if(error){
         console.error(error);
         mostrarToast("Produto salvo, mas houve erro nas imagens.");
+        return;
     }
 
     imagensProduto.value = urls.join("\n");
