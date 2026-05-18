@@ -1,223 +1,167 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBXFSSEQ7W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);} 
-  gtag('js', new Date());
-  gtag('config', 'G-PBXFSSEQ7W');
-</script>
-<title>Milly's arts</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milly's Arts | Presentes Personalizados</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="shortcut icon" href="assets/img/icon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-
 <body>
 
-<header>
-<div class="banner">
-<div class="container">
-<div class="navbar">
+    <header class="header">
+        <div class="container header-area">
 
-<div class="logo">
-<a href="index.html">
-<img src="assets/img/Logo estética minimalista marrom e branco (1).png">
-</a>
-</div>
+            <a href="index.html" class="logo-area">
+    <img src="./assets/img/logo.png" alt="Milly's Arts">
 
-<nav>
-<ul id="itens-menu">
-<li><a href="index.html"> Inicio</a></li>
-<li><a href="assets/pages/produtos.html"> Produtos</a></li>
-<li><a href="#produtos-dts"> destaques</a></li>
-</ul>
-</nav>
-
-<a href="#" onclick="openCart(); return false;" class="cart-icon">
-<img class="sacolac" src="assets/img/carrinho.png" width="30" height="30">
-<span id="cart-count">0</span>
+    <div class="logo-texto">
+        <h1>MILLY'S</h1>
+        <span>ARTS</span>
+    </div>
 </a>
 
-</div>
+         <nav class="menu">
+            <a href="index.html" class="ativo">Início</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="carrinho.html">Carrinho</a>
+        </nav>
 
-<div class="linha">
-<div class="col-2">
-<h1>Presenteie quem você ama</h1>
-<p>
-Onde ideias viram presente.
-Detalhes que falam por você e transformam gestos simples em algo especial.
-</p>
+        </div>
+    </header>
 
-<p class="mais-info">
-<a href="assets/pages/mais-info.html" class="btn"> Mais Info✨ </a>
-</p>
-</div>
+    <main>
 
-<div class="col-2">
-<img src="assets/img/Gemini_Generated_Image_k58vck58vck58vck (1).png" class="buque-img">
-</div>
-</div>
-</div>
-</div>
-</header>
+        <section class="hero">
+            <div class="container hero-area">
 
-<main id="produtos-dts">
-<div class="categorias">
-<div class="corpocat">
-<h2>↓ Produtos em destaque ↓</h2>
+                <div class="hero-text">
+                    <span class="hero-tag">Presentes personalizados</span>
 
-<div class="produtos">
+                    <h1>
+                        Presenteie quem você ama com algo único
+                    </h1>
 
-<div class="produto">
-<img src="assets/img/cubo.jpeg">
-<h3>Cubo Giratorio</h3>
-<p>R$ 22,00</p>
-<button onclick="abrirProduto('Cubo Giratorio',22,'assets/img/cubo.jpeg',false)">🛒</button>
-</div>
+                    <p>
+                        Buquês, lembranças, quadros, chaveiros e presentes personalizados feitos com carinho para transformar momentos simples em memórias especiais.
+                    </p>
 
-<div class="produto">
-<img src="assets/img/polaroidss.jpeg">
-<h3>Polaroids</h3>
-<p>R$ 1,00 <small>(Unidade)</small></p>
-<button onclick="abrirProduto('Polaroid',1,'assets/img/polaroidss.jpeg',false)">🛒</button>
-</div>
+                    <div class="hero-actions">
+                        <a href="produtos.html" class="btn-primary">Ver produtos</a>
+                        <a href="#destaques" class="btn-secondary">Mais vendidos</a>
+                    </div>
+                </div>
 
-<div class="produto">
-<img src="assets/img/monoculos.jpeg">
-<h3>Chaveiro Monoculo</h3>
-<p>R$ 12,00</p>
-<button onclick="abrirProduto('Chaveiro Monoculo',12,'assets/img/monoculos.jpeg',false)">🛒</button>
-</div>
+                <div class="hero-image">
+                    <div class="hero-glow"></div>
+                    <img src="./assets/img/hero-buque.png" alt="Buquê personalizado">
+                </div>
 
-<div class="produto">
-<img src="assets/img/buque-rosa.jpeg">
-<h3>Buquê de Borboletas</h3>
-<p>R$ 70,00</p>
-<button onclick="abrirProduto('Buquê de Borboletas',70,'assets/img/buque-rosa.jpeg',true)">🛒</button>
-</div>
+            </div>
+        </section>
 
-<div class="produto">
-<img src="assets/img/rosabombom.jpeg">
-<h3>Rosa de cetim com bombons</h3>
-<p>R$ 25,00</p>
-<button onclick="abrirProduto('Rosa de cetim com bombons',25,'assets/img/rosabombom.jpeg',false)">🛒</button>
-</div>
+        <section class="categorias-section">
+            <div class="container">
 
-<div class="produto">
-<img src="assets/img/quadro.jpeg">
-<h3>Quadro 15x20</h3>
-<p>R$ 25,00</p>
-<button onclick="abrirProduto('Quadro 15x20',25,'assets/img/quadro.jpeg',false)">🛒</button>
-</div>
+                <div class="section-title">
+                    <span>Escolha por categoria</span>
+                    <h2>Feitos para cada tipo de presente</h2>
+                </div>
 
-<div class="produto">
-<img src="assets/img/caixinha-chama.jpeg">
-<h3>caixinha Chamas</h3>
-<p>R$ 10,00</p>
-<button onclick="abrirProduto('caixinha Chamas',10,'assets/img/caixinha-chama.jpeg',false)">🛒</button>
-</div>
+                <div class="categorias-grid" id="categoriasGrid">
+                    <a href="produtos.html?categoria=buques" class="categoria-card">
+                        <span>💐</span>
+                        <h3>Buquês</h3>
+                    </a>
 
-<div class="produto">
-<img src="assets/img/fundo-ft.jpeg">
-<h3>Buquê Van Gogh</h3>
-<p>R$ 50,00</p>
-<button onclick="abrirProduto('Buquê Van Gogh',50,'assets/img/fundo-ft.jpeg',false)">🛒</button>
-</div>
+                    <a href="produtos.html?categoria=chaveiros" class="categoria-card">
+                        <span>🔑</span>
+                        <h3>Chaveiros</h3>
+                    </a>
 
-</div>
+                    <a href="produtos.html?categoria=quadros" class="categoria-card">
+                        <span>🖼️</span>
+                        <h3>Quadros</h3>
+                    </a>
 
-<aside>
-<p><a href="assets/pages/produtos.html" class="vmais">Produtos 🎀</a></p>
-</aside>
+                    <a href="produtos.html?categoria=polaroids" class="categoria-card">
+                        <span>📸</span>
+                        <h3>Polaroids</h3>
+                    </a>
 
-</div>
-</div>
+                    <a href="produtos.html?categoria=outros" class="categoria-card">
+                        <span>🎁</span>
+                        <h3>Outros</h3>
+                    </a>
+                </div>
 
-</main>
+            </div>
+        </section>
 
-<footer>
-<p>
-  Site desenvolvido por 🔗 <a href="https://www.instagram.com/marcello.lzz?igsh=MTFqb251OHZ3Mzlp&utm_source=qr"
-   target="_blank">Marcello</a></p>
+        <section class="produtos-section" id="destaques">
+            <div class="container">
+
+                <div class="section-title">
+                    <span>Favoritos da loja</span>
+                    <h2>Produtos em destaque</h2>
+                </div>
+
+                <div class="produtos-grid" id="produtosDestaque">
+                    <!-- Produtos do Supabase entram aqui -->
+                </div>
+
+                <div class="center">
+                    <a href="produtos.html" class="btn-primary">Ver todos os produtos</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <div>
+                        <span>Presente personalizado</span>
+                        <h2>Quer algo feito do seu jeito?</h2>
+                        <p>
+                            Escolha o produto, personalize os detalhes e finalize seu pedido pelo WhatsApp.
+                        </p>
+                    </div>
+
+                    <a 
+                        href="https://wa.me/5582991156122?text=Olá! Quero fazer um pedido personalizado na Milly's Arts."
+                        class="btn-primary"
+                        target="_blank"
+                    >
+                        Pedir no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-area">
+            <p>Milly's Arts © 2025</p>
+            <p>Presentes personalizados feitos com carinho.</p>
+        </div>
+    </footer>
+
+<footer class="footer">
+    <a href="https://instagram.com/marcello.lzz"
+       target="_blank"
+       class="footer-link">
+        Desenvolvido por Marcello.lzz 🡥
+    </a>
 </footer>
-
-<!-- SIDEBAR DO CARRINHO -->
-
-<div id="cartSidebar" class="cart-sidebar">
-
-<div class="cart-header">
-<h2>Seu Carrinho</h2>
-<span onclick="closeCart()">✕</span>
-</div>
-
-<div id="cartItems"></div>
-
-<div class="cart-footer">
-<p id="cartTotal">Total: R$ 0,00</p>
-
-<!-- CAMPO DE CUPOM -->
-<div class="cupom-box">
-    <input type="text" id="cupomInput" placeholder="Cupom de desconto">
-    <button onclick="aplicarCupom()">Aplicar</button>
-    <p id="cupomMsg"></p>
-</div> 
-
-<div class="pagamento-box">
-<label>Forma de pagamento:</label>
-<select id="formaPagamento">
-<option value="">Selecione</option>
-<option value="Pix">Pix</option>
-<option value="Cartão">Cartão</option>
-<option value="Espécie">Espécie</option>
-</select>
-</div>
-
-<div class="cliente-box">
-  <label>Seu nome:</label>
-  <input type="text" id="nomeCliente" placeholder="Digite seu nome ">
-</div>
-
-<button onclick="finalizarCompra()">Finalizar comprinhas ✨</button>
-
-</div>
-
-</div>
-
-<div id="toast" class="toast"></div>
-
-<!-- MODAL BONITO -->
-<div id="modalAviso" class="modal">
-  <div class="modal-box">
-
-    <div class="modal-icon">🛍️</div>
-
-    <h3 id="modalTitulo">Aviso</h3>
-    <p id="modalMensagem">Mensagem aqui</p>
-
-    <button onclick="fecharModal()">Entendi</button>
-  </div>
-</div>
-
-<!-- MODAL DO PRODUTO -->
-<div id="productModal" class="product-modal">
-  <div class="product-box">
-<span class="close" onclick="fecharProduto()">✕</span>
-<div class="img-area">
-    <img id="pm-img">
-</div>
-<h2 id="pm-nome"></h2>
-<p id="pm-preco"></p>
-<div id="pm-tamanho"></div>
-<button id="pm-add">Adicionar ao carrinho</button>
-  </div>
-</div>
-
-<script src="assets/js/carrinho.js"></script>
-
+    
+    <script src="./js/supabase.js"></script>
+    <script src="./js/home.js"></script>
 </body>
 </html>

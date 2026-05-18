@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin | Milly's Arts</title>
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/login.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <main class="login-page">
+        <form class="login-card" id="formLogin">
+            <img src="./assets/img/logo.png" alt="Milly's Arts">
+
+            <h1>Painel Admin</h1>
+            <p>Entre para gerenciar produtos e cupons.</p>
+
+            <div class="campo">
+                <label>Email</label>
+                <input type="email" id="emailLogin" required placeholder="email@email.com">
+            </div>
+
+            <div class="campo">
+                <label>Senha</label>
+                <input type="password" id="senhaLogin" required placeholder="Sua senha">
+            </div>
+
+            <button type="submit" class="btn-login">
+                Entrar
+            </button>
+
+            <p id="loginErro" class="login-erro"></p>
+        </form>
+    </main>
+
+    <script src="./js/supabase.js"></script>
+    <script src="./js/login.js"></script>
+</body>
+</html>

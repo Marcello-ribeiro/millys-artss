@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos | Milly's Arts</title>
+
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/produtos.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-area">
+
+            <a href="index.html" class="logo-area">
+                <img src="./assets/img/logo.png" alt="Milly's Arts">
+            </a>
+
+    <nav class="menu">
+        <a href="index.html">Início</a>
+        <a href="produtos.html" class="ativo">Produtos</a>
+        <a href="carrinho.html">Carrinho</a>
+    </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="produtos-hero">
+            <div class="container">
+                <span>Catálogo completo</span>
+                <h1>Escolha seu presente personalizado</h1>
+                <p>
+                    Filtre por categoria e encontre produtos feitos para presentear com carinho.
+                </p>
+            </div>
+        </section>
+
+        <section class="catalogo-section">
+            <div class="container">
+
+                <div class="catalogo-topo">
+                    <div class="filtros-categorias" id="filtrosCategorias">
+                        <button class="ativo" data-categoria="todos">Todos</button>
+                    </div>
+
+                    <select id="ordenarProdutos" class="ordenar-select">
+                        <option value="recentes">Mais recentes</option>
+                        <option value="menor">Menor preço</option>
+                        <option value="maior">Maior preço</option>
+                        <option value="nome">Nome A-Z</option>
+                    </select>
+                </div>
+
+                <div class="produtos-grid" id="listaProdutos">
+                    <!-- Produtos entram aqui -->
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-area">
+            <p>Milly's Arts © 2025</p>
+            <p>Presentes personalizados feitos com carinho.</p>
+        </div>
+    </footer>
+
+<footer class="footer">
+    <a href="https://instagram.com/marcello.lzz"
+       target="_blank"
+       class="footer-link">
+        Desenvolvido por Marcello.lzz 🡥
+    </a>
+</footer>
+
+    <script src="./js/supabase.js"></script>
+    <script src="./js/produtos.js"></script>
+</body>
+</html>

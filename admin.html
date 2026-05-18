@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | Milly's Arts</title>
+
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/admin.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <main class="admin-page">
+
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="./assets/img/logo.png" alt="Milly's Arts">
+                <div>
+                    <strong>Milly's Arts</strong>
+                    <span>Painel Admin</span>
+                </div>
+            </div>
+
+            <nav class="admin-menu">
+                <button class="ativo" data-tab="produtos">Produtos</button>
+                <button data-tab="cupons">Cupons</button>
+                <a href="index.html">Ver loja</a>
+                <button id="btnLogout">
+                    Sair
+                </button>
+            </nav>
+        </aside>
+
+        <section class="admin-content">
+
+            <div class="admin-topo">
+                <div>
+                    <span>Controle da loja</span>
+                    <h1>Painel administrativo</h1>
+                </div>
+            </div>
+
+            <section class="admin-tab ativo" id="tab-produtos">
+
+                <div class="admin-grid">
+
+                    <form class="admin-card form-produto" id="formProduto">
+                        <input type="hidden" id="produtoId">
+
+                        <h2 id="tituloFormProduto">Adicionar produto</h2>
+
+                        <div class="campo">
+                            <label>Nome do produto</label>
+                            <input type="text" id="nomeProduto" required placeholder="Ex: Buquê de borboletas">
+                        </div>
+
+                        <div class="campo">
+                            <label>Preço</label>
+                            <input type="number" id="precoProduto" required step="0.01" min="0" placeholder="Ex: 35.00">
+                        </div>
+
+                        <div class="campo">
+                            <label>Categoria</label>
+                            <select id="categoriaProduto" required>
+                                <option value="">Selecione</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label>Descrição</label>
+                            <textarea id="descricaoProduto" rows="4" placeholder="Detalhes do produto..."></textarea>
+                        </div>
+
+                        <div class="campo">
+                        <label>Fotos do produto</label>
+
+                        <div class="campo-file">
+                        <div class="file-custom">
+                            <span id="nomeArquivos">Nenhuma foto selecionada</span>
+                            <strong>Escolher fotos</strong>
+                        </div>
+
+                        <input 
+                            type="file" 
+                            id="uploadImagensProduto" 
+                            accept="image/*" 
+                            multiple
+                        >
+                    </div>
+
+                        <small class="campo-ajuda">
+                            Pode selecionar várias fotos. A primeira será a principal.
+                        </small>
+                    </div>
+
+                    <div class="campo">
+                        <label>Imagens atuais</label>
+
+                        <textarea 
+                            id="imagensProduto" 
+                            rows="5" 
+                            placeholder="As URLs das imagens enviadas aparecem aqui automaticamente."
+                        ></textarea>
+
+                        <small class="campo-ajuda">
+                            Em edição, mantenha aqui as imagens que você não quer apagar.
+                        </small>
+                    </div>
+
+                        <div class="campo">
+                            <label>Tamanhos</label>
+                            <div class="checks-inline">
+                                <label><input type="checkbox" name="tamanho" value="PP"> PP</label>
+                                <label><input type="checkbox" name="tamanho" value="P"> P</label>
+                                <label><input type="checkbox" name="tamanho" value="M"> M</label>
+                                <label><input type="checkbox" name="tamanho" value="G"> G</label>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <label>Configurações</label>
+
+                            <div class="checks-grid">
+                                <label>
+                                    <input type="checkbox" id="ativoProduto" checked>
+                                    Produto ativo
+                                </label>
+
+                                <label>
+                                    <input type="checkbox" id="destaqueProduto">
+                                    Produto em destaque
+                                </label>
+
+                                <label>
+                                    <input type="checkbox" id="homeProduto">
+                                    Aparecer na página inicial
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-admin-primary">
+                                Salvar produto
+                            </button>
+
+                            <button type="button" class="btn-admin-secondary" id="btnLimparProduto">
+                                Limpar
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="admin-card lista-admin">
+                        <div class="lista-topo">
+                            <h2>Produtos cadastrados</h2>
+                            <button type="button" id="btnRecarregarProdutos">Atualizar</button>
+                        </div>
+
+                        <div class="admin-list" id="listaProdutosAdmin">
+                            <!-- Produtos entram aqui -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="admin-tab" id="tab-cupons">
+
+                <div class="admin-grid">
+
+                    <form class="admin-card form-cupom" id="formCupom">
+                        <input type="hidden" id="cupomId">
+
+                        <h2 id="tituloFormCupom">Adicionar cupom</h2>
+
+                        <div class="campo">
+                            <label>Código</label>
+                            <input type="text" id="codigoCupom" required placeholder="Ex: MILLY10">
+                        </div>
+
+                        <div class="campo">
+                            <label>Tipo de desconto</label>
+                            <select id="tipoCupom" required>
+                                <option value="porcentagem">Porcentagem</option>
+                                <option value="fixo">Valor fixo</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label>Valor</label>
+                            <input type="number" id="valorCupom" required min="0" step="0.01" placeholder="Ex: 10">
+                        </div>
+
+                        <div class="campo">
+                            <label>Validade</label>
+                            <input type="date" id="validadeCupom">
+                        </div>
+
+                        <div class="campo">
+                            <label class="check-unico">
+                                <input type="checkbox" id="ativoCupom" checked>
+                                Cupom ativo
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-admin-primary">
+                                Salvar cupom
+                            </button>
+
+                            <button type="button" class="btn-admin-secondary" id="btnLimparCupom">
+                                Limpar
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="admin-card lista-admin">
+                        <div class="lista-topo">
+                            <h2>Cupons cadastrados</h2>
+                            <button type="button" id="btnRecarregarCupons">Atualizar</button>
+                        </div>
+
+                        <div class="admin-list" id="listaCuponsAdmin">
+                            <!-- Cupons entram aqui -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+<div class="modal-confirm" id="modalConfirm">
+    <div class="modal-confirm-card">
+        <h2>Excluir produto?</h2>
+        <p id="modalConfirmTexto">
+            Essa ação não poderá ser desfeita.
+        </p>
+
+        <div class="modal-confirm-actions">
+            <button type="button" id="btnCancelarConfirm" class="btn-cancelar-confirm">
+                Cancelar
+            </button>
+
+            <button type="button" id="btnConfirmarAcao" class="btn-confirmar-confirm">
+                Excluir
+            </button>
+        </div>
+    </div>
+</div>
+
+    <script src="./js/supabase.js"></script>
+    <script src="./js/proteger-admin.js"></script>
+    <script src="./js/admin.js"></script>
+
+    
+</body>
+</html>
