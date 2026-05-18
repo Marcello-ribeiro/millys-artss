@@ -412,6 +412,58 @@ button{
     color:#fff;
 }
 
+.footer{
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 18px 20px;
+}
+
+.footer-link{
+    text-align: center;
+}
+
+.acesso-admin-secreto{
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.05);
+
+    border: 1px solid rgba(233, 143, 233, 0.671);
+
+    color: rgb(255, 255, 255);
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    transition: .25s;
+}
+
+.acesso-admin-secreto:hover{
+    transform: translateY(-50%) scale(1.08);
+
+    background: rgba(255,255,255,.1);
+
+    color: rgba(255,255,255,.55);
+}
+
 /* ESTADOS */
 
 .loading-produtos,

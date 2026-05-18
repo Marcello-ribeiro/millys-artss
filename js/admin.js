@@ -1,3 +1,6 @@
+
+
+
 const adminMenuBtns = document.querySelectorAll(".admin-menu button");
 const adminTabs = document.querySelectorAll(".admin-tab");
 
@@ -718,6 +721,8 @@ if(btnLogout){
 
         await supabaseClient.auth.signOut();
 
-        window.location.href = "login.html";
+        localStorage.removeItem("adminLogado");
+
+        window.location.replace("login.html");
     });
 }
