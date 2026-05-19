@@ -21,10 +21,11 @@ async function fazerLogin(event){
         password: senhaLogin.value
     });
 
-    if(error){
-        loginErro.textContent = "Email ou senha inválidos.";
-        return;
-    }
+   if(error){
+    console.log("ERRO LOGIN:", error);
+    loginErro.textContent = error.message;
+    return;
+}
 
     window.location.href = "admin.html";
 }
