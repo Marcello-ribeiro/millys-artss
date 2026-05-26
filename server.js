@@ -330,20 +330,41 @@ app.get("/logs", async (req, res) => {
                     font-size:14px;
                 }
 
-                .pergunta-box{
-                background:#1f1f1f;
-                border:1px solid #333;
-    }
+            .pergunta-box{
 
-                .resposta-box{
-                background:linear-gradient(
-                135deg,
-              #111827,
-            #1e293b
-                    padding:20px;
-                    border-radius:18px;
-                    margin-top:15px;
-                }
+    background:linear-gradient(
+        135deg,
+        #1f1f1f,
+        #2a2a2a
+    );
+
+    border:1px solid #3a3a3a;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    margin-top:15px;
+
+}
+
+.resposta-box{
+
+    background:linear-gradient(
+        135deg,
+        #111827,
+        #1e293b
+    );
+
+    border:1px solid #334155;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    margin-top:15px;
+
+}
 
                 .pergunta-box h3,
                 .resposta-box h3{
