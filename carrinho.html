@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho | Milly's Arts</title>
+
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/carrinho.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-area">
+
+            <a href="index.html" class="logo-area">
+                <img src="./assets/img/logo.png" alt="Milly's Arts">
+            </a>
+
+   <nav class="menu">
+    <a href="index.html">Início</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="carrinho.html" class="ativo">Carrinho</a>
+</nav>
+
+        </div>
+    </header>
+
+    <main class="carrinho-page">
+        <section class="container">
+
+            <div class="carrinho-titulo">
+                <span>Seu pedido</span>
+                <h1>Carrinho de compras</h1>
+                <p>Confira os produtos, aplique seu cupom e finalize pelo WhatsApp.</p>
+            </div>
+
+            <div class="carrinho-layout">
+
+                <div class="carrinho-lista" id="listaCarrinho">
+                    <!-- Itens entram aqui -->
+                </div>
+
+                <aside class="resumo-card">
+                    <h2>Resumo</h2>
+
+                    <div class="cupom-box">
+                        <label for="cupomInput">Cupom de desconto</label>
+
+                        <div class="cupom-linha">
+                            <input type="text" id="cupomInput" placeholder="Digite o cupom">
+                            <button type="button" id="btnAplicarCupom">Aplicar</button>
+                        </div>
+
+                        <p id="cupomMensagem"></p>
+                    </div>
+
+                    <div class="resumo-valores">
+                        <div>
+                            <span>Subtotal</span>
+                            <strong id="subtotalCarrinho">R$ 0,00</strong>
+                        </div>
+
+                        <div>
+                            <span>Desconto</span>
+                            <strong id="descontoCarrinho">R$ 0,00</strong>
+                        </div>
+
+                        <div class="total">
+                            <span>Total</span>
+                            <strong id="totalCarrinho">R$ 0,00</strong>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-finalizar" id="btnFinalizarPedido">
+                        Finalizar no WhatsApp
+                    </button>
+
+                    <a href="produtos.html" class="btn-continuar">
+                        Continuar comprando
+                    </a>
+                </aside>
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-area">
+            <p>Milly's Arts © 2025</p>
+            <p>Presentes personalizados feitos com carinho.</p>
+        </div>
+    </footer>
+
+    <footer class="footer">
+    <a href="https://instagram.com/marcello.lzz"
+       target="_blank"
+       class="footer-link">
+        Desenvolvido por Marcello.lzz 🡥
+    </a>
+</footer>
+
+    <script src="./js/supabase.js"></script>
+    <script src="./js/carrinho.js"></script>
+</body>
+</html>

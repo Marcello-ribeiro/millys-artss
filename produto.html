@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto | Milly's Arts</title>
+
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/produto.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-area">
+
+            <a href="index.html" class="logo-area">
+                <img src="./assets/img/logo.png" alt="Milly's Arts">
+            </a>
+
+            <nav class="menu">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="carrinho.html">Carrinho</a>
+            </nav>
+
+            <a href="carrinho.html" class="cart-button">
+                <span class="cart-icon">🛍️</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+
+        </div>
+    </header>
+
+    <main class="produto-page">
+        <section class="container produto-detalhe" id="produtoDetalhe">
+            <!-- Produto entra aqui -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-area">
+            <p>Milly's Arts © 2025</p>
+            <p>Presentes personalizados feitos com carinho.</p>
+        </div>
+    </footer>
+
+
+    <footer class="footer">
+    <a href="https://instagram.com/marcello.lzz"
+       target="_blank"
+       class="footer-link">
+        Desenvolvido por Marcello.lzz 🡥
+    </a>
+</footer>
+
+    <script src="./js/supabase.js"></script>
+    <script src="./js/produto.js"></script>
+</body>
+</html>

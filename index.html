@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milly's Arts | Presentes Personalizados</title>
+
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-area">
+
+            <a href="index.html" class="logo-area">
+    <img src="./assets/img/logo.png" alt="Milly's Arts">
+
+    <div class="logo-texto">
+        <h1>MILLY'S</h1>
+        <span>ARTS</span>
+    </div>
+</a>
+
+         <nav class="menu">
+            <a href="index.html" class="ativo">Início</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="carrinho.html">Carrinho</a>
+        </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="container hero-area">
+
+                <div class="hero-text">
+                    <span class="hero-tag">Presentes personalizados</span>
+
+                    <h1>
+                        Presenteie quem você ama com algo único
+                    </h1>
+
+                    <p>
+                        Buquês, lembranças, quadros, chaveiros e presentes personalizados feitos com carinho para transformar momentos simples em memórias especiais.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="produtos.html" class="btn-primary">Ver produtos</a>
+                        <a href="#destaques" class="btn-secondary">Mais vendidos</a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="hero-glow"></div>
+                    <img src="./assets/img/hero-buque.png" alt="Buquê personalizado">
+                </div>
+
+            </div>
+        </section>
+
+        <section class="categorias-section">
+            <div class="container">
+
+                <div class="section-title">
+                    <span>Escolha por categoria</span>
+                    <h2>Feitos para cada tipo de presente</h2>
+                </div>
+
+                <div class="categorias-grid" id="categoriasGrid">
+                    <a href="produtos.html?categoria=buques" class="categoria-card">
+                        <span>💐</span>
+                        <h3>Buquês</h3>
+                    </a>
+
+                    <a href="produtos.html?categoria=chaveiros" class="categoria-card">
+                        <span>🔑</span>
+                        <h3>Chaveiros</h3>
+                    </a>
+
+                    <a href="produtos.html?categoria=quadros" class="categoria-card">
+                        <span>🖼️</span>
+                        <h3>Quadros</h3>
+                    </a>
+
+                    <a href="produtos.html?categoria=polaroids" class="categoria-card">
+                        <span>📸</span>
+                        <h3>Polaroids</h3>
+                    </a>
+
+                    <a href="produtos.html?categoria=outros" class="categoria-card">
+                        <span>🎁</span>
+                        <h3>Outros</h3>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="produtos-section" id="destaques">
+            <div class="container">
+
+                <div class="section-title">
+                    <span>Favoritos da loja</span>
+                    <h2>Produtos em destaque</h2>
+                </div>
+
+                <div class="produtos-grid" id="produtosDestaque">
+                    <!-- Produtos do Supabase entram aqui -->
+                </div>
+
+                <div class="center">
+                    <a href="produtos.html" class="btn-primary">Ver todos os produtos</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <div>
+                        <span>Presente personalizado</span>
+                        <h2>Quer algo feito do seu jeito?</h2>
+                        <p>
+                            Escolha o produto, personalize os detalhes e finalize seu pedido pelo WhatsApp.
+                        </p>
+                    </div>
+
+                    <a 
+                        href="https://wa.me/5582991156122?text=Olá! Quero fazer um pedido personalizado na Milly's Arts."
+                        class="btn-primary"
+                        target="_blank"
+                    >
+                        Pedir no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-area">
+            <p>Milly's Arts © 2025</p>
+            <p>Presentes personalizados feitos com carinho.</p>
+        </div>
+    </footer>
+
+<footer class="footer">
+    <a href="https://instagram.com/marcello.lzz"
+       target="_blank"
+       class="footer-link">
+        Desenvolvido por Marcello.lzz 🡥
+    </a>
+
+    <a href="login.html" class="acesso-admin-secreto">
+        🔒
+    </a>
+</footer>
+
+<button class="ia-float-btn" onclick="abrirIA()">💬</button>
+
+<div class="ia-chat" id="iaChat">
+    <div class="ia-header">
+        <span>Assistente Milly's Arts</span>
+        <button onclick="fecharIA()">×</button>
+    </div>
+
+    <div class="ia-body" id="iaBody">
+        <div class="ia-msg bot">
+            Oi! Sou a Milly, assistente da Milly's Arts. Como posso ajudar?
+        </div>
+    </div>
+
+    <div class="ia-input-area">
+        <input id="msg" type="text" placeholder="Digite sua dúvida...">
+        <button onclick="enviar()">Enviar</button>
+    </div>
+</div>
+
+<script>
+
+function abrirIA() {
+    document.getElementById("iaChat").style.display = "flex";
+}
+
+function fecharIA() {
+    document.getElementById("iaChat").style.display = "none";
+}
+
+async function enviar() {
+
+    const input = document.getElementById("msg");
+    const iaBody = document.getElementById("iaBody");
+
+    const mensagem = input.value.trim();
+
+    if (!mensagem) return;
+
+    iaBody.innerHTML += `
+        <div class="ia-msg user">
+            ${mensagem}
+        </div>
+    `;
+
+    input.value = "";
+
+    try {
+
+        const resposta = await fetch("http://localhost:3000/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+                body: JSON.stringify({
+                message: mensagem,
+                siteContext: document.body.innerText
+            })
+
+        });
+
+        const dados = await resposta.json();
+
+        iaBody.innerHTML += `
+            <div class="ia-msg bot">
+                ${dados.reply}
+            </div>
+        `;
+
+        iaBody.scrollTop = iaBody.scrollHeight;
+
+    } catch (erro) {
+
+        console.log(erro);
+
+        iaBody.innerHTML += `
+            <div class="ia-msg bot">
+                Erro ao conectar com a IA.
+            </div>
+        `;
+
+    }
+
+}
+
+</script>
+    
+    <script src="./js/supabase.js"></script>
+    <script src="./js/home.js"></script>
+</body>
+</html>
