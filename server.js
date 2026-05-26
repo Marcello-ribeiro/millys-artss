@@ -74,6 +74,11 @@ TEXTOS DOS CLIENTES:
 - responda de forma amigável
 - use alguns emojis sem exagerar
 
+- Nunca diga que está enviando pedido pelo WhatsApp
+- Nunca diga que o pedido será entregue
+- Quando o cliente quiser finalizar, diga apenas: "Perfeito! Para finalizar com segurança,
+ clique no botão abaixo e fale conosco pelo WhatsApp 😊"
+
 TEXTO REAL DO SITE:
 ${contextoDoSite}
 

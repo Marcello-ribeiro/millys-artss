@@ -234,15 +234,45 @@ async function enviar() {
 
         });
 
-        const dados = await resposta.json();
+       const dados = await resposta.json();
 
-        iaBody.innerHTML += `
-            <div class="ia-msg bot">
-                ${dados.reply}
-            </div>
-        `;
+const textoResposta = dados.reply || "Erro ao responder.";
 
-        iaBody.scrollTop = iaBody.scrollHeight;
+iaBody.innerHTML += `
+    <div class="ia-msg bot">
+        ${textoResposta}
+    </div>
+`;
+
+const textoCliente = mensagem.toLowerCase();
+const textoBot = textoResposta.toLowerCase();
+
+const precisaFinalizar =
+    textoCliente.includes("finalizar") ||
+    textoCliente.includes("pedido") ||
+    textoCliente.includes("comprar") ||
+    textoBot.includes("whatsapp") ||
+    textoBot.includes("finalizar") ||
+    textoBot.includes("pedido");
+
+if (precisaFinalizar) {
+
+    const textoZap = encodeURIComponent(
+        "Olá! Vim pelo site da Milly's Arts e quero finalizar meu pedido personalizado."
+    );
+
+    iaBody.innerHTML += `
+        <a 
+            class="ia-whatsapp-btn"
+            href="https://wa.me/5582991016562?text=${textoZap}"
+            target="_blank"
+        >
+            Finalizar pelo WhatsApp
+        </a>
+    `;
+}
+
+iaBody.scrollTop = iaBody.scrollHeight;
 
     } catch (erro) {
 
