@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
@@ -20,22 +20,29 @@ const supabase = createClient(
     process.env.SUPABASE_KEY
 );
 
+function escaparHTML(texto = "") {
+    return String(texto)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
 app.post("/chat", async (req, res) => {
-
     try {
+        const { message, siteContext } = req.body;
 
-        const { message } = req.body;
+        const contextoDoSite =
+            siteContext || "Nenhuma informação do site foi enviada.";
 
         const resposta = await groq.chat.completions.create({
-
             model: "llama-3.1-8b-instant",
 
             messages: [
-
                 {
                     role: "system",
                     content: `
-
 Você é Milly, atendente virtual da loja Milly's Arts.
 
 REGRAS:
@@ -43,6 +50,8 @@ REGRAS:
 - Nunca diga que é IA
 - Nunca diga que pedido foi confirmado
 - Nunca diga que pagamento foi aprovado
+- Nunca diga que pedido foi realizado
+- Nunca diga que pedido foi enviado
 - Nunca invente preços
 - Nunca invente produtos
 - Nunca invente estoque
@@ -51,26 +60,30 @@ REGRAS:
 - Seja simpática
 - Sempre em português
 
-PRODUTOS:
-- Polaroids
-- Quadros
-- Chaveiros
-- Rosas
+LOJA:
+- Milly's Arts
 - Presentes personalizados
+- Atendimento pelo WhatsApp
+- Instagram: @millysarts
+- WhatsApp: (82) 99101-6562
 
-Quando o cliente quiser finalizar:
+PRODUTOS:
+- Use primeiro os produtos reais encontrados no texto do site
+- Se não tiver informação suficiente, fale de forma geral
+
+QUANDO O CLIENTE QUISER FINALIZAR:
+Responda apenas:
 "Perfeito 😊 Clique no botão abaixo para finalizar no WhatsApp."
 
+TEXTO REAL DO SITE:
+${contextoDoSite}
 `
                 },
-
                 {
                     role: "user",
                     content: message
                 }
-
             ]
-
         });
 
         const reply = resposta.choices[0].message.content;
@@ -84,36 +97,27 @@ Quando o cliente quiser finalizar:
                 }
             ]);
 
-        res.json({
-            reply
-        });
+        res.json({ reply });
 
     } catch (erro) {
-
         console.log(erro);
 
         res.status(500).json({
             error: "Erro na IA"
         });
-
     }
-
 });
 
 app.delete("/limpar-logs", async (req, res) => {
-
     const senha = req.query.senha;
 
     if (senha !== "millyadmin123") {
-
         return res.status(401).json({
             error: "Não autorizado"
         });
-
     }
 
     try {
-
         await supabase
             .from("ia_logs")
             .delete()
@@ -124,45 +128,33 @@ app.delete("/limpar-logs", async (req, res) => {
         });
 
     } catch (erro) {
-
         console.log(erro);
 
         res.status(500).json({
             error: "Erro ao limpar logs"
         });
-
     }
-
 });
 
 app.get("/logs", async (req, res) => {
-
     const senha = req.query.senha;
 
     if (senha !== "millyadmin123") {
-
         return res.send(`
-
-        <html>
-
-            <body style="
-                background:#0f0f0f;
-                color:white;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                height:100vh;
-                font-family:Arial;
-            ">
-
-                <h1>Acesso negado</h1>
-
-            </body>
-
-        </html>
-
+            <html>
+                <body style="
+                    background:#0f0f0f;
+                    color:white;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    height:100vh;
+                    font-family:Arial;
+                ">
+                    <h1>Acesso negado</h1>
+                </body>
+            </html>
         `);
-
     }
 
     const { data, error } = await supabase
@@ -172,279 +164,265 @@ app.get("/logs", async (req, res) => {
             ascending: false
         });
 
+    if (error) {
+        console.log("ERRO SUPABASE LOGS:", error);
+
+        return res.status(500).send(`
+            <pre style="font-family:Arial; padding:20px;">
+Erro ao carregar logs:
+
+${JSON.stringify(error, null, 2)}
+            </pre>
+        `);
+    }
+
     let htmlLogs = "";
 
     if (data && data.length > 0) {
-
         data.forEach(log => {
-
             htmlLogs += `
+                <div class="log-card">
+                    <div class="log-topo">
+                        <span class="cliente">
+                            Cliente
+                        </span>
 
-            <div class="log-card">
+                        <span class="data">
+                            ${new Date(log.created_at).toLocaleString("pt-BR")}
+                        </span>
+                    </div>
 
-                <div class="log-topo">
+                    <div class="pergunta-box">
+                        <h3>PERGUNTA DO CLIENTE</h3>
+                        <p>${escaparHTML(log.pergunta)}</p>
+                    </div>
 
-                    <span class="cliente">
-                        Cliente
-                    </span>
-
-                    <span class="data">
-                        ${new Date(log.created_at).toLocaleString()}
-                    </span>
-
+                    <div class="resposta-box">
+                        <h3>RESPOSTA DA MILLY</h3>
+                        <p>${escaparHTML(log.resposta)}</p>
+                    </div>
                 </div>
-
-                <div class="pergunta-box">
-
-                    <h3>PERGUNTA</h3>
-
-                    <p>${log.pergunta}</p>
-
-                </div>
-
-                <div class="resposta-box">
-
-                    <h3>RESPOSTA DA MILLY</h3>
-
-                    <p>${log.resposta}</p>
-
-                </div>
-
-            </div>
-
             `;
-
         });
-
     } else {
-
         htmlLogs = `
             <div class="sem-logs">
                 Nenhum log encontrado.
             </div>
         `;
-
     }
 
     res.send(`
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
 
-    <html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <head>
+    <title>Logs IA | Milly's Arts</title>
 
-            <title>Logs IA | Milly's Arts</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
 
-            <meta charset="UTF-8">
+        body{
+            min-height:100vh;
+            background:#0f0f0f;
+            color:white;
+            padding:35px;
+        }
 
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .topo{
+            background:linear-gradient(135deg,#171717,#262626);
+            padding:35px;
+            border-radius:24px;
+            margin-bottom:30px;
+            border:1px solid #303030;
+        }
 
-            <style>
+        .topo h1{
+            font-size:42px;
+            margin-bottom:10px;
+            color:#ffffff;
+        }
 
-                *{
-                    margin:0;
-                    padding:0;
-                    box-sizing:border-box;
-                    font-family:Arial;
-                }
+        .topo p{
+            color:#a3a3a3;
+            font-size:16px;
+        }
 
-                body{
-                    background:#111;
-                    color:white;
-                    padding:35px;
-                }
+        .stats{
+            background:#171717;
+            border:1px solid #303030;
+            padding:25px;
+            border-radius:20px;
+            margin-bottom:20px;
+        }
 
-                .topo{
-                    background:linear-gradient(90deg,#1b1b1b,#2a2a2a);
-                    padding:35px;
-                    border-radius:24px;
-                    margin-bottom:30px;
-                    border:1px solid #333;
-                }
+        .stats h2{
+            font-size:45px;
+            color:#60a5fa;
+        }
 
-                .topo h1{
-                    font-size:42px;
-                    margin-bottom:10px;
-                }
+        .stats p{
+            color:#a3a3a3;
+            margin-top:5px;
+        }
 
-                .topo p{
-                    color:#aaa;
-                    font-size:16px;
-                }
+        .limpar-logs-btn{
+            background:#2c2c2c;
+            color:white;
+            border:none;
+            padding:14px 20px;
+            border-radius:14px;
+            cursor:pointer;
+            font-size:15px;
+            font-weight:700;
+            margin-bottom:25px;
+            transition:.2s;
+        }
 
-                .stats{
-                    background:#1b1b1b;
-                    border:1px solid #333;
-                    padding:25px;
-                    border-radius:20px;
-                    margin-bottom:20px;
-                }
+        .limpar-logs-btn:hover{
+            background:#3a3a3a;
+        }
 
-                .stats h2{
-                    font-size:45px;
-                    color:#fff;
-                }
+        .log-card{
+            background:#171717;
+            border:1px solid #303030;
+            border-radius:24px;
+            padding:25px;
+            margin-bottom:25px;
+        }
 
-                .stats p{
-                    color:#aaa;
-                    margin-top:5px;
-                }
+        .log-topo{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:20px;
+            gap:15px;
+        }
 
-                .limpar-logs-btn{
-                    background:#2c2c2c;
-                    color:white;
-                    border:none;
-                    padding:14px 20px;
-                    border-radius:14px;
-                    cursor:pointer;
-                    font-size:15px;
-                    font-weight:700;
-                    margin-bottom:25px;
-                    transition:.2s;
-                }
+        .cliente{
+            color:#60a5fa;
+            font-weight:800;
+            font-size:18px;
+        }
 
-                .limpar-logs-btn:hover{
-                    background:#3a3a3a;
-                }
+        .data{
+            color:#737373;
+            font-size:13px;
+        }
 
-                .log-card{
-                    background:#1a1a1a;
-                    border:1px solid #333;
-                    border-radius:24px;
-                    padding:25px;
-                    margin-bottom:25px;
-                }
+        .pergunta-box{
+            background:linear-gradient(135deg,#1f1f1f,#2a2a2a);
+            border:1px solid #3a3a3a;
+            padding:20px;
+            border-radius:18px;
+            margin-top:15px;
+        }
 
-                .log-topo{
-                    display:flex;
-                    justify-content:space-between;
-                    margin-bottom:20px;
-                }
+        .resposta-box{
+            background:linear-gradient(135deg,#111827,#1e293b);
+            border:1px solid #334155;
+            padding:20px;
+            border-radius:18px;
+            margin-top:15px;
+        }
 
-                .cliente{
-                    color:#fff;
-                    font-weight:700;
-                }
+        .pergunta-box h3{
+            font-size:13px;
+            margin-bottom:14px;
+            color:#d4d4d4;
+            letter-spacing:1px;
+        }
 
-                .data{
-                    color:#888;
-                    font-size:14px;
-                }
+        .resposta-box h3{
+            font-size:13px;
+            margin-bottom:14px;
+            color:#60a5fa;
+            letter-spacing:1px;
+        }
 
-            .pergunta-box{
+        .pergunta-box p{
+            line-height:1.8;
+            color:#ffffff;
+            font-size:16px;
+            font-weight:500;
+            white-space:pre-wrap;
+        }
 
-    background:linear-gradient(
-        135deg,
-        #1f1f1f,
-        #2a2a2a
-    );
+        .resposta-box p{
+            line-height:1.8;
+            color:#dbeafe;
+            font-size:16px;
+            font-weight:500;
+            white-space:pre-wrap;
+        }
 
-    border:1px solid #3a3a3a;
+        .sem-logs{
+            background:#171717;
+            border:1px solid #303030;
+            padding:30px;
+            border-radius:20px;
+            text-align:center;
+            color:#888;
+        }
 
-    padding:20px;
+        @media(max-width:700px){
+            body{
+                padding:16px;
+            }
 
-    border-radius:18px;
+            .topo h1{
+                font-size:30px;
+            }
 
-    margin-top:15px;
+            .log-topo{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+        }
+    </style>
+</head>
 
-}
+<body>
+    <div class="topo">
+        <h1>Logs da IA</h1>
+        <p>Perguntas dos clientes e respostas da Milly.</p>
+    </div>
 
-.resposta-box{
+    <div class="stats">
+        <h2>${data?.length || 0}</h2>
+        <p>Total de mensagens</p>
+    </div>
 
-    background:linear-gradient(
-        135deg,
-        #111827,
-        #1e293b
-    );
+    <button class="limpar-logs-btn" onclick="limparLogs()">
+        Limpar Logs
+    </button>
 
-    border:1px solid #334155;
+    ${htmlLogs}
 
-    padding:20px;
+    <script>
+        async function limparLogs() {
+            const confirmar = confirm("Deseja apagar todos os logs?");
 
-    border-radius:18px;
+            if (!confirmar) return;
 
-    margin-top:15px;
+            await fetch("/limpar-logs?senha=millyadmin123", {
+                method:"DELETE"
+            });
 
-}
-
-                .pergunta-box h3,
-                .resposta-box h3{
-                    font-size:14px;
-                    margin-bottom:15px;
-                    color:#bbb;
-                }
-
-                .pergunta-box p,
-                .resposta-box p{
-                    line-height:1.7;
-                    color:#f1f1f1;
-                }
-
-                .sem-logs{
-                    background:#1b1b1b;
-                    border:1px solid #333;
-                    padding:30px;
-                    border-radius:20px;
-                    text-align:center;
-                    color:#888;
-                }
-
-            </style>
-
-        </head>
-
-        <body>
-
-            <div class="topo">
-
-                <h1>Logs da IA</h1>
-
-                <p>Perguntas dos clientes e respostas da Milly.</p>
-
-            </div>
-
-            <div class="stats">
-
-                <h2>${data?.length || 0}</h2>
-
-                <p>Total de mensagens</p>
-
-            </div>
-
-            <button class="limpar-logs-btn" onclick="limparLogs()">
-                Limpar Logs
-            </button>
-
-            ${htmlLogs}
-
-            <script>
-
-                async function limparLogs() {
-
-                    const confirmar = confirm(
-                        "Deseja apagar todos os logs?"
-                    );
-
-                    if (!confirmar) return;
-
-                    await fetch(
-                        "/limpar-logs?senha=millyadmin123",
-                        {
-                            method:"DELETE"
-                        }
-                    );
-
-                    location.reload();
-
-                }
-
-            </script>
-
-        </body>
-
-    </html>
-
+            location.reload();
+        }
+    </script>
+</body>
+</html>
     `);
-
 });
 
 app.listen(3000, () => {
