@@ -330,10 +330,16 @@ app.get("/logs", async (req, res) => {
                     font-size:14px;
                 }
 
-                .pergunta-box,
+                .pergunta-box{
+                background:#1f1f1f;
+                border:1px solid #333;
+    }
+
                 .resposta-box{
-                    background:#222;
-                    border:1px solid #333;
+                background:linear-gradient(
+                135deg,
+              #111827,
+            #1e293b
                     padding:20px;
                     border-radius:18px;
                     margin-top:15px;
