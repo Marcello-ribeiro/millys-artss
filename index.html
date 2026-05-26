@@ -247,13 +247,31 @@ iaBody.innerHTML += `
 const textoCliente = mensagem.toLowerCase();
 const textoBot = textoResposta.toLowerCase();
 
-const precisaFinalizar =
+const produtosReais = [
+    "buquê",
+    "buques",
+    "buquês",
+    "lembrança",
+    "lembranças",
+    "quadro",
+    "quadros",
+    "chaveiro",
+    "chaveiros",
+    "polaroid",
+    "polaroids",
+    "presente personalizado"
+];
+
+const clienteQuerFinalizar =
     textoCliente.includes("finalizar") ||
-    textoCliente.includes("pedido") ||
     textoCliente.includes("comprar") ||
-    textoBot.includes("whatsapp") ||
-    textoBot.includes("finalizar") ||
-    textoBot.includes("pedido");
+    textoCliente.includes("pedido");
+
+const mencionouProduto = produtosReais.some(produto =>
+    textoCliente.includes(produto)
+);
+
+const precisaFinalizar = clienteQuerFinalizar && mencionouProduto;
 
 if (precisaFinalizar) {
 
