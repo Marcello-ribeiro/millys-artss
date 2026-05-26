@@ -631,6 +631,8 @@ button{
     border:1px solid #ddd;
 
     outline:none;
+
+    font-size:16px;
 }
 
 .ia-input-area button{
@@ -651,6 +653,30 @@ button{
     );
 }
 
+
+@media(max-width:768px){
+
+    .ia-chat{
+        width:95%;
+        height:75vh;
+
+        right:50%;
+        bottom:15px;
+
+        transform:translateX(50%);
+    }
+
+    .ia-float-btn{
+        width:56px;
+        height:56px;
+
+        font-size:22px;
+
+        right:18px;
+        bottom:18px;
+    }
+
+}
 /* TOAST */
 
 .toast{
