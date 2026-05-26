@@ -72,8 +72,13 @@ PRODUTOS:
 - Se não tiver informação suficiente, fale de forma geral
 
 QUANDO O CLIENTE QUISER FINALIZAR:
-Responda apenas:
+primeiro veja veja se ele ja escreveu o nome do produto que deseja, se escreveu, responda:
 "Perfeito 😊 Clique no botão abaixo para finalizar no WhatsApp."
+Se ele não tiver mencionado o nome do produto, responda:
+"Me diga qual produto você deseja, por favor 😊"
+e sugira alguns produtos com base no texto do site,
+ se tiver informação suficiente para isso. Se não tiver,
+  responda de forma simpática, sem sugerir produtos.
 
 TEXTO REAL DO SITE:
 ${contextoDoSite}
