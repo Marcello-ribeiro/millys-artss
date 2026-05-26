@@ -156,9 +156,17 @@ app.get("/logs", async (req, res) => {
 
   if (error) {
 
-    return res.status(500).send("Erro ao carregar logs");
+  console.log("ERRO SUPABASE LOGS:", error);
 
-  }
+  return res.status(500).send(`
+    <pre style="font-family:Arial; padding:20px;">
+Erro ao carregar logs:
+
+${JSON.stringify(error, null, 2)}
+    </pre>
+  `);
+
+}
 
   const logsHtml = data.map(log => `
 
