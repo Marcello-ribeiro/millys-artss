@@ -180,7 +180,12 @@
     </div>
 
     <div class="ia-input-area">
-        <input id="msg" type="text" placeholder="Digite sua dúvida...">
+        <input 
+    id="msg"
+    type="text"
+    placeholder="Digite sua dúvida..."
+    onkeydown="if(event.key === 'Enter'){ enviar() }"
+>
         <button onclick="enviar()">Enviar</button>
     </div>
 </div>
