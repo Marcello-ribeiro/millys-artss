@@ -65,7 +65,7 @@ LOJA:
 - Presentes personalizados
 - Atendimento pelo WhatsApp
 - Instagram: @millysarts
-- WhatsApp: (82) 99101-6562
+- WhatsApp: +55 (82)99101-6562
 
 PRODUTOS:
 - Use primeiro os produtos reais encontrados no texto do site
