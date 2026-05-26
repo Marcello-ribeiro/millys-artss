@@ -254,7 +254,7 @@ function finalizarPedido(){
     mensagem += `Total: ${formatarPreco(total)}%0A%0A`;
     mensagem += "Pode confirmar meu pedido?";
 
-    const numero = "5582991156122";
+    const numero = "5582991016562";
     const link = `https://wa.me/${numero}?text=${mensagem}`;
 
     window.open(link, "_blank");

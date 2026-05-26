@@ -227,7 +227,7 @@ function adicionarAoCarrinho(produto, tamanho){
 
 function montarLinkWhatsapp(){
     const texto = `Olá! Tenho interesse nesse produto da Milly's Arts: ${produtoAtual?.nome || ""}`;
-    return `https://wa.me/5582991156122?text=${encodeURIComponent(texto)}`;
+    return `https://wa.me/5582991016562?text=${encodeURIComponent(texto)}`;
 }
 
 function mostrarToast(mensagem){
