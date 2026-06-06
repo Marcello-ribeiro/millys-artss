@@ -18,6 +18,7 @@ const imagensProduto = document.querySelector("#imagensProduto");
 const ativoProduto = document.querySelector("#ativoProduto");
 const destaqueProduto = document.querySelector("#destaqueProduto");
 const homeProduto = document.querySelector("#homeProduto");
+const esgotadoProduto = document.querySelector("#esgotadoProduto");
 
 const listaProdutosAdmin = document.querySelector("#listaProdutosAdmin");
 const btnLimparProduto = document.querySelector("#btnLimparProduto");
@@ -45,6 +46,9 @@ const modalConfirm = document.querySelector("#modalConfirm");
 const modalConfirmTexto = document.querySelector("#modalConfirmTexto");
 const btnCancelarConfirm = document.querySelector("#btnCancelarConfirm");
 const btnConfirmarAcao = document.querySelector("#btnConfirmarAcao");
+
+
+
 
 let acaoConfirmada = null;
 
@@ -156,6 +160,7 @@ async function carregarProdutosAdmin(){
             ativo,
             destaque,
             aparecer_home,
+            esgotado,
             tem_tamanho,
             categoria_id,
             categorias (
@@ -215,6 +220,7 @@ function renderizarProdutosAdmin(){
                     ${produto.ativo ? `<span class="admin-tag">Ativo</span>` : `<span class="admin-tag">Inativo</span>`}
                     ${produto.destaque ? `<span class="admin-tag">Destaque</span>` : ""}
                     ${produto.aparecer_home ? `<span class="admin-tag">Home</span>` : ""}
+                    ${produto.esgotado ? `<span class="admin-tag admin-tag-esgotado">Esgotado</span>` : ""}
                     ${produto.tem_tamanho ? `<span class="admin-tag">Tamanhos</span>` : ""}
                     ${imagens.length ? `<span class="admin-tag">${imagens.length} foto(s)</span>` : ""}
                 </div>
@@ -259,6 +265,7 @@ function limparFormProduto(){
     ativoProduto.checked = true;
     destaqueProduto.checked = false;
     homeProduto.checked = false;
+    esgotadoProduto.checked = false;
     uploadImagensProduto.value = "";
     nomeArquivos.textContent = "Nenhuma foto selecionada";
 }
@@ -326,6 +333,7 @@ async function salvarProduto(event){
         ativo: ativoProduto.checked,
         destaque: destaqueProduto.checked,
         aparecer_home: homeProduto.checked,
+        esgotado: esgotadoProduto.checked,
         tem_tamanho: temTamanho
     };
 
@@ -482,6 +490,7 @@ function editarProduto(id){
     ativoProduto.checked = produto.ativo;
     destaqueProduto.checked = produto.destaque;
     homeProduto.checked = produto.aparecer_home;
+    esgotadoProduto.checked = produto.esgotado === true;
 
     const imagensOrdenadas = [...(produto.produto_imagens || [])]
         .sort((a, b) => {

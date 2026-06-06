@@ -60,6 +60,7 @@ async function carregarProdutos(){
             descricao,
             destaque,
             ativo,
+            esgotado,
             tem_tamanho,
             categorias (
                 nome,
@@ -180,12 +181,13 @@ function renderizarProdutos(){
             "./assets/img/placeholder-produto.png";
 
         const card = document.createElement("article");
-        card.className = "produto-card";
+        card.className = `produto-card ${produto.esgotado ? "produto-esgotado" : ""}`;
 
         card.innerHTML = `
             <div class="produto-img">
                 <img src="${imagemPrincipal}" alt="${produto.nome}">
-                ${produto.destaque ? `<span class="produto-badge">Destaque</span>` : ""}
+                ${produto.esgotado ? `<span class="produto-badge-esgotado">Esgotado</span>` : ""}
+                ${produto.destaque && !produto.esgotado ? `<span class="produto-badge">Destaque</span>` : ""}
             </div>
 
             <div class="produto-info">
@@ -204,14 +206,29 @@ function renderizarProdutos(){
                         Ver detalhes
                     </a>
 
-                    <button 
-                        class="btn-cart" 
-                        type="button"
-                        data-id="${produto.id}"
-                        aria-label="Adicionar ao carrinho"
-                    >
-                        🛍️
-                    </button>
+                    ${
+                produto.esgotado
+                    ? `
+                        <button 
+                            class="btn-cart btn-cart-esgotado" 
+                            type="button"
+                            disabled
+                            aria-label="Produto esgotado"
+                        >
+                            Esgotado
+                        </button>
+                    `
+                    : `
+                        <button 
+                            class="btn-cart" 
+                            type="button"
+                            data-id="${produto.id}"
+                            aria-label="Adicionar ao carrinho"
+                        >
+                            🛍️
+                        </button>
+                    `
+            }
                 </div>
             </div>
         `;
@@ -246,6 +263,11 @@ function ativarBotoesCarrinho(){
 }
 
 function adicionarAoCarrinho(produto, tamanho){
+    if(produto.esgotado){
+        mostrarToast("Esse produto está esgotado no momento.");
+        return;
+    }
+
     const imagens = produto.produto_imagens || [];
 
     const imagemPrincipal =

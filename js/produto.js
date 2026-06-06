@@ -225,8 +225,11 @@ function adicionarAoCarrinho(produto, tamanho){
     mostrarToast("Produto adicionado ao carrinho.");
 }
 
-function montarLinkWhatsapp(){
-    const texto = `Olá! Tenho interesse nesse produto da Milly's Arts: ${produtoAtual?.nome || ""}`;
+function montarLinkWhatsapp() {
+    const nomeProduto = produtoAtual?.nome || "produto";
+
+    const texto = `Olá! Tudo bem? Acabei de ver o produto "${nomeProduto}" na Milly's Arts e gostaria de receber mais informações sobre ele.`;
+
     return `https://wa.me/5582991016562?text=${encodeURIComponent(texto)}`;
 }
 

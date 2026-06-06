@@ -34,6 +34,8 @@ async function carregarProdutosDestaque(){
             destaque,
             aparecer_home,
             ativo,
+            esgotado,
+            tem_tamanho,
             produto_imagens (
                 imagem_url,
                 principal,
@@ -79,12 +81,16 @@ async function carregarProdutosDestaque(){
             "./assets/img/placeholder-produto.png";
 
         const card = document.createElement("article");
-        card.className = "produto-card";
+        card.className = `produto-card ${produto.esgotado ? "produto-esgotado" : ""}`;
 
         card.innerHTML = `
             <div class="produto-img">
                 <img src="${imagemPrincipal}" alt="${produto.nome}">
-                <span class="produto-badge">Destaque</span>
+                ${
+                    produto.esgotado
+                        ? `<span class="produto-badge-esgotado">ESGOTADO</span>`
+                        : `<span class="produto-badge">Destaque</span>`
+                }
             </div>
 
             <div class="produto-info">
@@ -99,14 +105,29 @@ async function carregarProdutosDestaque(){
                         Ver detalhes
                     </a>
 
-                    <button 
-                        class="btn-cart" 
-                        type="button"
-                        aria-label="Adicionar ao carrinho"
-                        data-id="${produto.id}"
-                    >
-                        🛍️
-                    </button>
+                    ${
+                        produto.esgotado
+                            ? `
+                                <button 
+                                    class="btn-cart btn-cart-esgotado" 
+                                    type="button"
+                                    disabled
+                                    aria-label="Produto esgotado"
+                                >
+                                    Esgotado
+                                </button>
+                            `
+                            : `
+                                <button 
+                                    class="btn-cart" 
+                                    type="button"
+                                    aria-label="Adicionar ao carrinho"
+                                    data-id="${produto.id}"
+                                >
+                                    🛍️
+                                </button>
+                            `
+                    }
                 </div>
             </div>
         `;
@@ -118,7 +139,7 @@ async function carregarProdutosDestaque(){
 }
 
 function ativarBotoesCarrinho(){
-    const botoes = document.querySelectorAll(".btn-cart");
+    const botoes = document.querySelectorAll(".btn-cart:not(.btn-cart-esgotado)");
 
     botoes.forEach(botao => {
         botao.addEventListener("click", async () => {
@@ -131,6 +152,7 @@ function ativarBotoesCarrinho(){
                     nome,
                     preco,
                     tem_tamanho,
+                    esgotado,
                     produto_imagens (
                         imagem_url,
                         principal,
@@ -142,6 +164,16 @@ function ativarBotoesCarrinho(){
 
             if(error || !data){
                 alert("Erro ao adicionar produto.");
+                return;
+            }
+
+            if(data.esgotado){
+                mostrarToast("Esse produto está esgotado no momento.");
+                return;
+            }
+
+            if(data.tem_tamanho){
+                window.location.href = `produto.html?id=${data.id}`;
                 return;
             }
 

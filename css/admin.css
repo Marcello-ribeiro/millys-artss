@@ -506,6 +506,11 @@
     font-weight:900;
 }
 
+.admin-tag-esgotado {
+    background: #ff2b2b;
+    color: #fff;
+}
+
 @keyframes modalConfirmIn{
     from{
         opacity:0;
