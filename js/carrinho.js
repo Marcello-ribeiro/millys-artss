@@ -272,7 +272,7 @@ function finalizarPedido(){
         mensagem += `Subtotal: ${formatarPreco(item.preco * item.quantidade)}%0A%0A`;
     });
 
-    mensagem += `Subtotal: ${formatarPreco(subtotal)}%0A`;
+    
 
     if(cupomAplicado){
         mensagem += `Cupom: ${cupomAplicado.codigo}%0A`;
