@@ -511,6 +511,22 @@
     color: #fff;
 }
 
+.tamanhos-admin {
+    display: grid;
+    gap: 10px;
+}
+
+.tamanhos-admin label {
+    display: grid;
+    grid-template-columns: auto 40px 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+.preco-tamanho {
+    width: 100%;
+}
+
 @keyframes modalConfirmIn{
     from{
         opacity:0;

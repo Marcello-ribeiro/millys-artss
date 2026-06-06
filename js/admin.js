@@ -172,9 +172,10 @@ async function carregarProdutosAdmin(){
                 ordem
             ),
             produto_tamanhos (
-                tamanho,
-                ativo
-            )
+            tamanho,
+            preco,
+            ativo
+        )
         `)
         .order("criado_em", { ascending: false });
 
@@ -255,7 +256,15 @@ function ativarAcoesProdutosAdmin(){
 
 function pegarTamanhosSelecionados(){
     return [...document.querySelectorAll('input[name="tamanho"]:checked')]
-        .map(input => input.value);
+        .map(input => {
+            const tamanho = input.value;
+            const precoInput = document.querySelector(`.preco-tamanho[data-tamanho="${tamanho}"]`);
+
+            return {
+                tamanho,
+                preco: Number(precoInput.value)
+            };
+        });
 }
 
 function limparFormProduto(){
@@ -458,9 +467,10 @@ async function salvarTamanhosProduto(idProdutoSalvo, tamanhos){
 
     if(!tamanhos.length) return;
 
-    const tamanhosPayload = tamanhos.map(tamanho => ({
+    const tamanhosPayload = tamanhos.map(item => ({
         produto_id: idProdutoSalvo,
-        tamanho,
+        tamanho: item.tamanho,
+        preco: item.preco,
         ativo: true
     }));
 

@@ -51,6 +51,7 @@ async function carregarProduto(){
             ),
             produto_tamanhos (
                 tamanho,
+                preco,
                 ativo
             )
         `)
@@ -105,7 +106,7 @@ function renderizarProduto(){
 
                 <h1>${produtoAtual.nome}</h1>
 
-                <p class="preco">${formatarPreco(produtoAtual.preco)}</p>
+                <p class="preco" id="precoProdutoDetalhe">${formatarPreco(produtoAtual.preco)}</p>
 
                 <p class="descricao">
                     ${produtoAtual.descricao || "Produto personalizado feito com carinho."}
@@ -119,9 +120,14 @@ function renderizarProduto(){
 
                             <div class="tamanhos-lista">
                                 ${tamanhos.map(item => `
-                                    <button class="tamanho-btn" type="button" data-tamanho="${item.tamanho}">
-                                        ${item.tamanho}
-                                    </button>
+                                    <button 
+                                    class="tamanho-btn" 
+                                    type="button" 
+                                    data-tamanho="${item.tamanho}"
+                                    data-preco="${item.preco}"
+                                >
+                                    ${item.tamanho}
+                                </button>
                                 `).join("")}
                             </div>
                         </div>
@@ -168,10 +174,16 @@ function ativarGaleria(){
 
 function ativarTamanhos(){
     const botoes = document.querySelectorAll(".tamanho-btn");
+    const precoElemento = document.querySelector("#precoProdutoDetalhe");
 
     botoes.forEach(btn => {
         btn.addEventListener("click", () => {
             tamanhoSelecionado = btn.dataset.tamanho;
+            produtoAtual.precoSelecionado = Number(btn.dataset.preco);
+
+            if(precoElemento){
+                precoElemento.textContent = formatarPreco(produtoAtual.precoSelecionado);
+            }
 
             botoes.forEach(item => item.classList.remove("ativo"));
             btn.classList.add("ativo");
@@ -212,7 +224,7 @@ function adicionarAoCarrinho(produto, tamanho){
         carrinho.push({
             id: produto.id,
             nome: produto.nome,
-            preco: Number(produto.preco),
+            preco: produto.precoSelecionado ? Number(produto.precoSelecionado) : Number(produto.preco),
             imagem: imagemPrincipal,
             tamanho,
             quantidade: 1

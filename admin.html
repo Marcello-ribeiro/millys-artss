@@ -112,14 +112,40 @@
                     </div>
 
                         <div class="campo">
-                            <label>Tamanhos</label>
-                            <div class="checks-inline">
-                                <label><input type="checkbox" name="tamanho" value="PP"> PP</label>
-                                <label><input type="checkbox" name="tamanho" value="P"> P</label>
-                                <label><input type="checkbox" name="tamanho" value="M"> M</label>
-                                <label><input type="checkbox" name="tamanho" value="G"> G</label>
+                                <label>Tamanhos e preços</label>
+
+                                <div class="tamanhos-admin">
+                                    <label>
+                                        <input type="checkbox" name="tamanho" value="PP">
+                                        PP
+                                        <input type="number" class="preco-tamanho" data-tamanho="PP" step="0.01" min="0" placeholder="Preço PP">
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="tamanho" value="P">
+                                        P
+                                        <input type="number" class="preco-tamanho" data-tamanho="P" step="0.01" min="0" placeholder="Preço P">
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="tamanho" value="M">
+                                        M
+                                        <input type="number" class="preco-tamanho" data-tamanho="M" step="0.01" min="0" placeholder="Preço M">
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="tamanho" value="G">
+                                        G
+                                        <input type="number" class="preco-tamanho" data-tamanho="G" step="0.01" min="0" placeholder="Preço G">
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="tamanho" value="GG">
+                                        GG
+                                        <input type="number" class="preco-tamanho" data-tamanho="GG" step="0.01" min="0" placeholder="Preço GG">
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
                         <div class="campo">
                             <label>Configurações</label>
