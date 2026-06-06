@@ -210,6 +210,34 @@ async function aplicarCupom(){
         }
     }
 
+    if(data.codigo === "NAMORADOS15"){
+    const carrinho = pegarCarrinho();
+
+    const valorPolaroides = carrinho
+        .filter(item =>
+            item.nome.toLowerCase().includes("polaroid")
+        )
+        .reduce((soma, item) => {
+            return soma + (Number(item.preco) * Number(item.quantidade));
+        }, 0);
+
+    const possuiOutrosProdutos = carrinho.some(item =>
+        !item.nome.toLowerCase().includes("polaroid")
+    );
+
+    if(valorPolaroides > 0 && valorPolaroides < 10 && !possuiOutrosProdutos){
+        cupomAplicado = null;
+
+        cupomMensagem.textContent =
+            "O cupom NAMORADOS15 exige no mínimo R$10 em polaroides.";
+
+        cupomMensagem.classList.add("erro");
+
+        atualizarResumo();
+        return;
+    }
+}
+
     cupomAplicado = data;
 
     cupomMensagem.textContent = "Cupom aplicado com sucesso.";
