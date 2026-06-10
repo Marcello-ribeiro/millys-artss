@@ -413,7 +413,7 @@
     .banner-slider{
     width:92%;
     max-width:1200px;
-    max-height: fit-content;
+    max-height: 157px;
     aspect-ratio:16 / 5;
     margin:25px auto;
     border-radius:0px;
@@ -422,6 +422,11 @@
     background:transparent;
     box-shadow:0 10px 30px rgba(0,0,0,.08);
     border-radius: 12px;
+}
+
+.banner-slide.active{
+    opacity:1;
+    z-index:2;
 }
 
     .hero{
