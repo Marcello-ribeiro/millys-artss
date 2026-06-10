@@ -230,3 +230,17 @@ document.addEventListener("DOMContentLoaded", () => {
     atualizarContadorCarrinho();
     carregarProdutosDestaque();
 });
+
+const banners = document.querySelectorAll(".banner-slide");
+
+let atual = 0;
+
+setInterval(() => {
+
+    banners[atual].classList.remove("active");
+
+    atual = (atual + 1) % banners.length;
+
+    banners[atual].classList.add("active");
+
+}, 5000);

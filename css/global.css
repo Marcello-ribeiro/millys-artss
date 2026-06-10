@@ -684,6 +684,77 @@ button{
     font-size: 0.8rem;
 }
 
+.announcement-bar {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(90deg, #f25adf, #b63cff);
+    color: #fff;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.announcement-track {
+    display: inline-flex;
+    gap: 45px;
+    animation: anuncioRolando 22s linear infinite;
+}
+
+
+
+.announcement-track span {
+    display: inline-block;
+}
+
+@keyframes anuncioRolando {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.banner-slider{
+    width: 92%;
+    max-width: 1200px;
+    height: 260px;
+    margin: 25px auto;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.banner-slide{
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .8s ease;
+}
+
+.banner-slide.active{
+    opacity: 1;
+}
+
+.banner-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media(max-width:768px){
+
+    .banner-slider{
+        width: 95%;
+        height: 160px;
+        border-radius: 18px;
+    }
+
+}
+
 
 @media(max-width:768px){
 
