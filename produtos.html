@@ -4,29 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos | Milly's Arts</title>
-
-    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/png">
-
+    <meta name="description" content="Catálogo completo da Milly's Arts: buquês, polaroids, quadros, chaveiros e presentes personalizados.">
+    <link rel="icon" href="./assets/img/logo-mini.png" type="image/png">
+    <meta name="theme-color" content="#fff6fc">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap">
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/produtos.css">
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
     <header class="header">
         <div class="container header-area">
-
-            <a href="index.html" class="logo-area">
-                <img src="./assets/img/logo.png" alt="Milly's Arts">
+            <a href="index.html" class="logo-area" aria-label="Milly's Arts, página inicial">
+                <img src="./assets/img/logo-mini.png" alt="" width="46" height="46">
+                <span class="logo-texto">
+                    <strong>Milly's</strong>
+                    <span>Arts</span>
+                </span>
             </a>
 
-    <nav class="menu">
-        <a href="index.html">Início</a>
-        <a href="produtos.html" class="ativo">Produtos</a>
-        <a href="carrinho.html">Carrinho</a>
-    </nav>
-
+            <nav class="menu" aria-label="Menu principal">
+                <a href="index.html">Início</a>
+                <a href="produtos.html" class="ativo" aria-current="page">Produtos</a>
+                <a href="carrinho.html" class="menu-carrinho" aria-label="Carrinho">
+                    <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8h13l-1.2 12H6.7L5.5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
+                    <span class="texto-carrinho">Carrinho</span>
+                    <span class="cart-count vazio" id="cartCount">0</span>
+                </a>
+            </nav>
         </div>
     </header>
 
@@ -34,11 +42,9 @@
 
         <section class="produtos-hero">
             <div class="container">
-                <span>Catálogo completo</span>
-                <h1>Escolha seu presente personalizado</h1>
-                <p>
-                    Filtre por categoria e encontre produtos feitos para presentear com carinho.
-                </p>
+                <span class="rotulo">Catálogo completo</span>
+                <h1>Escolha seu presente <em>personalizado</em></h1>
+                <p>Filtre por categoria e encontre produtos feitos para presentear com carinho.</p>
             </div>
         </section>
 
@@ -46,16 +52,19 @@
             <div class="container">
 
                 <div class="catalogo-topo">
-                    <div class="filtros-categorias" id="filtrosCategorias">
-                        <button class="ativo" data-categoria="todos">Todos</button>
+                    <div class="filtros-categorias" id="filtrosCategorias" role="group" aria-label="Filtrar por categoria">
+                        <button class="ativo" type="button" data-categoria="todos">Todos</button>
                     </div>
 
-                    <select id="ordenarProdutos" class="ordenar-select">
-                        <option value="recentes">Mais recentes</option>
-                        <option value="menor">Menor preço</option>
-                        <option value="maior">Maior preço</option>
-                        <option value="nome">Nome A-Z</option>
-                    </select>
+                    <label class="ordenar">
+                        <span>Ordenar</span>
+                        <select id="ordenarProdutos" class="ordenar-select">
+                            <option value="recentes">Mais recentes</option>
+                            <option value="menor">Menor preço</option>
+                            <option value="maior">Maior preço</option>
+                            <option value="nome">Nome A-Z</option>
+                        </select>
+                    </label>
                 </div>
 
                 <div class="produtos-grid" id="listaProdutos">
@@ -69,20 +78,40 @@
 
     <footer class="footer">
         <div class="container footer-area">
-            <p>Milly's Arts © 2025</p>
-            <p>Presentes personalizados feitos com carinho.</p>
+            <div class="footer-marca">
+                <strong>Milly's Arts</strong>
+                <p>Buquês, polaroids, quadros, chaveiros e lembranças personalizadas, feitos à mão para quem você ama.</p>
+            </div>
+
+            <div>
+                <h4>Loja</h4>
+                <ul class="footer-lista">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="produtos.html">Todos os produtos</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Atendimento</h4>
+                <ul class="footer-lista">
+                    <li><a href="https://wa.me/5582991016562" target="_blank" rel="noopener">WhatsApp</a></li>
+                    <li><a href="produtos.html?categoria=buques">Buquês</a></li>
+                    <li><a href="produtos.html?categoria=polaroids">Polaroids</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-base">
+            <div class="container">
+                <span>&copy; <span data-ano>2026</span> Milly's Arts. Todos os direitos reservados.</span>
+                <a href="https://instagram.com/marcello.lzz" target="_blank" rel="noopener" class="footer-link">Desenvolvido por Marcello.lzz</a>
+            </div>
         </div>
     </footer>
 
-<footer class="footer">
-    <a href="https://instagram.com/marcello.lzz"
-       target="_blank"
-       class="footer-link">
-        Desenvolvido por Marcello.lzz ➝
-    </a>
-</footer>
-
     <script src="./js/supabase.js"></script>
     <script src="./js/produtos.js"></script>
+    <script src="./js/fx.js" defer></script>
 </body>
 </html>

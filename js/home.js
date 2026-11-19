@@ -72,6 +72,8 @@ async function carregarProdutosDestaque(){
 
     produtosDestaque.innerHTML = "";
 
+    preencherColagem(data);
+
     data.forEach(produto => {
         const imagens = produto.produto_imagens || [];
 
@@ -124,7 +126,7 @@ async function carregarProdutosDestaque(){
                                     aria-label="Adicionar ao carrinho"
                                     data-id="${produto.id}"
                                 >
-                                    🛍️
+                                    <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8h13l-1.2 12H6.7L5.5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
                                 </button>
                             `
                     }
@@ -136,6 +138,25 @@ async function carregarProdutosDestaque(){
     });
 
     ativarBotoesCarrinho();
+}
+
+// coloca fotos de dois produtos em destaque nas polaroids do topo
+function preencherColagem(produtos){
+    const molduras = document.querySelectorAll(".polaroid-a, .polaroid-b");
+
+    const comFoto = produtos.filter(produto => !produto.esgotado && (produto.produto_imagens || []).length);
+
+    molduras.forEach((moldura, index) => {
+        const produto = comFoto[index];
+        if(!produto) return;
+
+        const imagens = produto.produto_imagens;
+        const imagem = imagens.find(img => img.principal) || imagens[0];
+
+        moldura.querySelector("img").src = imagem.imagem_url;
+        moldura.querySelector("figcaption").textContent = produto.nome;
+        moldura.hidden = false;
+    });
 }
 
 function ativarBotoesCarrinho(){
@@ -163,7 +184,7 @@ function ativarBotoesCarrinho(){
                 .single();
 
             if(error || !data){
-                alert("Erro ao adicionar produto.");
+                mostrarToast("Não foi possível adicionar o produto agora.");
                 return;
             }
 
@@ -235,12 +256,10 @@ const banners = document.querySelectorAll(".banner-slide");
 
 let atual = 0;
 
-setInterval(() => {
-
-    banners[atual].classList.remove("active");
-
-    atual = (atual + 1) % banners.length;
-
-    banners[atual].classList.add("active");
-
-}, 5000);
+if(banners.length > 1){
+    setInterval(() => {
+        banners[atual].classList.remove("active");
+        atual = (atual + 1) % banners.length;
+        banners[atual].classList.add("active");
+    }, 5000);
+}

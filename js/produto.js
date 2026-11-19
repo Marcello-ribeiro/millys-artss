@@ -66,6 +66,7 @@ async function carregarProduto(){
     }
 
     produtoAtual = data;
+    document.title = `${data.nome.charAt(0).toUpperCase()}${data.nome.slice(1)} | Milly's Arts`;
     renderizarProduto();
 }
 
@@ -144,10 +145,23 @@ function renderizarProduto(){
                         class="btn-whatsapp" 
                         href="${montarLinkWhatsapp()}" 
                         target="_blank"
+                        rel="noopener"
                     >
+                        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z"/></svg>
                         Comprar pelo WhatsApp
                     </a>
                 </div>
+
+                <ul class="produto-garantias">
+                    <li>
+                        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>
+                        Feito à mão, sob encomenda, com os detalhes que você escolher.
+                    </li>
+                    <li>
+                        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z"/></svg>
+                        O pedido é confirmado pelo WhatsApp, onde você envia fotos, nomes e datas.
+                    </li>
+                </ul>
             </div>
 
         </div>

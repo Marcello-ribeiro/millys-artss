@@ -225,7 +225,7 @@ function renderizarProdutos(){
                             data-id="${produto.id}"
                             aria-label="Adicionar ao carrinho"
                         >
-                            🛍️
+                            <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8h13l-1.2 12H6.7L5.5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
                         </button>
                     `
             }
