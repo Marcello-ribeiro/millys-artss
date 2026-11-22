@@ -31,17 +31,11 @@
 .hero-text h1{
     max-width:620px;
     font-family:var(--serif);
-    font-size:clamp(42px, 5.6vw, 72px);
+    font-size:clamp(44px, 5.8vw, 76px);
     font-weight:600;
-    line-height:1.04;
-    letter-spacing:-.01em;
+    line-height:1;
+    letter-spacing:-.02em;
     color:var(--ameixa);
-}
-
-.hero-text h1 em{
-    font-style:italic;
-    font-weight:500;
-    color:var(--rosa-3);
 }
 
 .hero-text p{
@@ -223,75 +217,106 @@
     box-shadow:0 8px 18px rgba(123,8,124,.1);
 }
 
-/* ---------- CATEGORIAS ---------- */
+/* ---------- CATEGORIAS: mural de polaroids ---------- */
 
 .categorias-section{
-    padding:64px 0 84px;
+    padding:72px 0 96px;
 }
 
-.categorias-grid{
+.categorias-mural{
     display:grid;
     grid-template-columns:repeat(5, 1fr);
-    gap:16px;
+    gap:36px 26px;
+    padding-top:12px;
 }
 
-.categoria-card{
-    padding:28px 16px 24px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    border-radius:var(--raio);
-    background:#fff;
-    border:1px solid var(--linha);
-    transition:transform .25s, box-shadow .25s, border-color .25s;
-}
-
-.categoria-icone{
-    width:64px;
-    height:64px;
-    margin-bottom:16px;
-    display:grid;
-    place-items:center;
-    border-radius:50%;
-    color:var(--ameixa);
-    background:var(--pastel-rosa);
-    transition:background-color .25s, color .25s;
-}
-
-.categoria-card:nth-child(even) .categoria-icone{
-    background:var(--pastel-lilas);
-}
-
-.categoria-icone .icone{
-    width:28px;
-    height:28px;
-    stroke-width:1.4;
-}
-
-.categoria-card h3{
-    font-family:var(--serif);
-    font-size:20px;
-    font-weight:600;
-    color:var(--ameixa-escuro);
-}
-
-.categoria-card p{
-    margin-top:4px;
+.categoria-polaroid{
+    display:block;
     color:var(--muted);
+}
+
+.categoria-polaroid figure{
+    position:relative;
+    margin:0;
+    padding:10px 10px 0;
+    background:#fff;
+    border-radius:3px;
+    rotate:var(--giro, -2deg);
+    box-shadow:
+        0 1px 2px rgba(43,18,49,.08),
+        0 14px 28px rgba(123,8,124,.12);
+    transition:rotate .35s cubic-bezier(.2,.7,.2,1), translate .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+}
+
+.categoria-polaroid:nth-child(2) figure{ --giro:2.5deg; }
+.categoria-polaroid:nth-child(3) figure{ --giro:-1deg; }
+.categoria-polaroid:nth-child(4) figure{ --giro:3deg; }
+.categoria-polaroid:nth-child(5) figure{ --giro:-3deg; }
+
+.categoria-polaroid:nth-child(even) .fita{
+    background:rgba(200,107,255,.38);
+    rotate:5deg;
+}
+
+.categoria-polaroid .fita{
+    width:70px;
+    margin-left:-35px;
+}
+
+.categoria-foto{
+    display:block;
+    aspect-ratio:1;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.8) 0 12%, transparent 12.5%),
+        linear-gradient(160deg, var(--pastel-rosa), var(--pastel-lilas));
+}
+
+.categoria-polaroid:nth-child(even) .categoria-foto{
+    background:
+        radial-gradient(circle at 30% 34%, rgba(255,255,255,.8) 0 12%, transparent 12.5%),
+        linear-gradient(160deg, var(--pastel-lilas), var(--pastel-pessego));
+}
+
+.categoria-foto img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.categoria-polaroid figcaption{
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--ameixa);
+    font-size:26px;
+}
+
+.categoria-polaroid p{
+    margin-top:14px;
+    padding:0 4px;
     font-size:14px;
-    line-height:1.4;
+    line-height:1.45;
+    text-align:center;
 }
 
-.categoria-card:hover{
-    transform:translateY(-4px);
-    border-color:var(--linha-forte);
-    box-shadow:var(--shadow);
+.categoria-polaroid:hover figure,
+.categoria-polaroid:focus-visible figure{
+    rotate:0deg;
+    translate:0 -6px;
+    box-shadow:
+        0 1px 2px rgba(43,18,49,.08),
+        0 22px 40px rgba(123,8,124,.18);
 }
 
-.categoria-card:hover .categoria-icone{
-    color:#fff;
-    background:var(--rosa-3);
+.categoria-polaroid:focus-visible{
+    outline:none;
+}
+
+.categoria-polaroid:focus-visible figure{
+    outline:2px solid var(--rosa-3);
+    outline-offset:4px;
 }
 
 /* ---------- DESTAQUES ---------- */
@@ -313,41 +338,33 @@
     list-style:none;
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:24px;
-    counter-reset:passo;
+    gap:40px;
+    padding-top:28px;
+    border-top:2px dotted var(--linha-forte);
 }
 
 .passos li{
     position:relative;
-    padding:30px 28px;
-    border-radius:var(--raio);
-    background:#fff;
-    border:1px solid var(--linha);
-}
-
-.passos li:not(:last-child)::after{
-    content:"";
-    position:absolute;
-    top:52px;
-    right:-25px;
-    width:26px;
-    border-top:2px dotted var(--linha-forte);
+    max-width:34ch;
 }
 
 .passo-numero{
-    font-variant-numeric:lining-nums;
-    display:block;
-    margin-bottom:14px;
-    font-family:var(--serif);
-    font-size:40px;
-    font-style:italic;
-    font-weight:500;
-    line-height:1;
+    display:grid;
+    place-items:center;
+    width:46px;
+    height:46px;
+    margin:-52px 0 16px;
+    border-radius:50%;
+    background:var(--bg);
+    border:1.5px solid var(--linha-forte);
     color:var(--rosa-3);
+    font-size:28px;
+    line-height:1;
 }
 
 .passos h3{
-    font-size:18px;
+    font-family:var(--serif);
+    font-size:23px;
     font-weight:600;
     color:var(--ameixa-escuro);
 }
@@ -374,15 +391,6 @@
     gap:32px;
     border-radius:28px;
     background:var(--pastel-rosa);
-}
-
-.cta-card::before{
-    content:"";
-    position:absolute;
-    inset:12px;
-    border:1.5px dashed rgba(217,70,196,.35);
-    border-radius:20px;
-    pointer-events:none;
 }
 
 .ramo-cta{
@@ -441,17 +449,21 @@
         height:470px;
     }
 
-    .categorias-grid{
+    .categorias-mural{
         grid-template-columns:repeat(3, 1fr);
     }
 
     .passos{
         grid-template-columns:1fr;
-        gap:14px;
+        gap:28px;
+        padding-top:0;
+        padding-left:28px;
+        border-top:0;
+        border-left:2px dotted var(--linha-forte);
     }
 
-    .passos li:not(:last-child)::after{
-        display:none;
+    .passo-numero{
+        margin:0 0 10px -52px;
     }
 
     .cta-card{
@@ -540,34 +552,31 @@
     }
 
     .categorias-section{
-        padding:44px 0 56px;
+        padding:48px 0 64px;
     }
 
-    .categorias-grid{
+    .categorias-mural{
         grid-template-columns:repeat(2, 1fr);
-        gap:12px;
+        gap:28px 18px;
     }
 
-    .categoria-card{
-        padding:22px 12px 18px;
+    .categoria-polaroid figure{
+        padding:7px 7px 0;
     }
 
-    .categoria-card:last-child{
+    .categoria-polaroid figcaption{
+        height:40px;
+        font-size:22px;
+    }
+
+    .categoria-polaroid p{
+        display:none;
+    }
+
+    .categoria-polaroid:last-child{
         grid-column:1 / -1;
-    }
-
-    .categoria-icone{
-        width:54px;
-        height:54px;
-        margin-bottom:12px;
-    }
-
-    .categoria-card h3{
-        font-size:18px;
-    }
-
-    .categoria-card p{
-        font-size:13px;
+        width:calc(50% - 9px);
+        justify-self:center;
     }
 
     .produtos-section{
@@ -576,10 +585,6 @@
 
     .passos-section{
         padding:56px 0 24px;
-    }
-
-    .passos li{
-        padding:24px 22px;
     }
 
     .cta-section{

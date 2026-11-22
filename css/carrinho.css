@@ -14,11 +14,7 @@
     color:var(--ameixa);
 }
 
-.carrinho-titulo h1 em{
-    font-style:italic;
-    font-weight:500;
-    color:var(--rosa-3);
-}
+
 
 .carrinho-titulo p{
     margin-top:10px;

@@ -90,8 +90,8 @@ async function carregarProdutosDestaque(){
                 <img src="${imagemPrincipal}" alt="${produto.nome}">
                 ${
                     produto.esgotado
-                        ? `<span class="produto-badge-esgotado">ESGOTADO</span>`
-                        : `<span class="produto-badge">Destaque</span>`
+                        ? `<span class="produto-badge-esgotado">Esgotado</span>`
+                        : ""
                 }
             </div>
 
@@ -247,9 +247,53 @@ function mostrarToast(mensagem){
     }, 2300);
 }
 
+// coloca a foto de um produto de cada categoria nas polaroids do mural
+async function carregarFotosCategorias(){
+    const polaroids = document.querySelectorAll(".categoria-polaroid[data-categoria]");
+    if(!polaroids.length) return;
+
+    const { data, error } = await supabaseClient
+        .from("produtos")
+        .select(`
+            esgotado,
+            categorias ( slug ),
+            produto_imagens ( imagem_url, principal, ordem )
+        `)
+        .eq("ativo", true)
+        .order("destaque", { ascending: false })
+        .order("criado_em", { ascending: false });
+
+    if(error || !data) return;
+
+    const fotoPorCategoria = {};
+
+    data.forEach(produto => {
+        const slug = produto.categorias?.slug;
+        const imagens = produto.produto_imagens || [];
+        if(!slug || !imagens.length || fotoPorCategoria[slug]) return;
+        if(produto.esgotado) return;
+
+        const imagem =
+            imagens.find(img => img.principal) ||
+            [...imagens].sort((a, b) => (a.ordem || 0) - (b.ordem || 0))[0];
+
+        fotoPorCategoria[slug] = imagem.imagem_url;
+    });
+
+    polaroids.forEach(polaroid => {
+        const url = fotoPorCategoria[polaroid.dataset.categoria];
+        if(!url) return;
+
+        const img = polaroid.querySelector(".categoria-foto img");
+        img.src = url;
+        img.hidden = false;
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     atualizarContadorCarrinho();
     carregarProdutosDestaque();
+    carregarFotosCategorias();
 });
 
 const banners = document.querySelectorAll(".banner-slide");
